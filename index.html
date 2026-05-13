@@ -183,7 +183,30 @@
       <div style="height:6px"></div>
       <div class="card">
         <div class="ctitle">Nuevo límite</div>
-        <div class="frow"><select id="b-cat"><option>Comida</option><option>Transporte</option><option>Servicios</option><option>Entretenimiento</option><option>Salud</option><option>Ropa</option><option>Trabajo / Studio</option><option>El Cantinero</option><option>Otro</option></select></div>
+        <div class="frow"><select id="b-cat">
+          <optgroup label="🏠 Hogar">
+            <option>Despensa</option>
+            <option>Comida / Restaurantes</option>
+            <option>Servicios (luz, agua, gas)</option>
+            <option>Hogar / Remodelación</option>
+          </optgroup>
+          <optgroup label="🚌 Personal">
+            <option>Transporte</option>
+            <option>Salud</option>
+            <option>Ropa</option>
+            <option>Gastos hormiga</option>
+          </optgroup>
+          <optgroup label="📋 Trámites y varios">
+            <option>Trámites</option>
+            <option>Entretenimiento</option>
+            <option>Gastos eventuales</option>
+          </optgroup>
+          <optgroup label="💼 Negocio">
+            <option>Trabajo / Studio</option>
+            <option>El Cantinero</option>
+          </optgroup>
+          <option>Otro</option>
+        </select></div>
         <div class="frow"><input type="number" id="b-lim" placeholder="Límite mensual ($)" inputmode="decimal"></div>
         <button class="btnp" id="b-add">Guardar límite</button>
       </div>
@@ -299,6 +322,77 @@
       </div>
     </div>
 
+        <!-- FONDO DE EMERGENCIA + EFECTIVO -->
+    <div id="sec-fondo" class="section">
+      <div style="height:6px"></div>
+
+      <div style="display:flex;background:#f0f0f0;border-radius:12px;padding:3px;margin-bottom:14px">
+        <button class="segtab active" data-fe="fondo" style="flex:1;padding:9px;font-size:13px;font-weight:500;text-align:center;border-radius:10px;cursor:pointer;color:#888;border:none;background:transparent">Fondo emergencia</button>
+        <button class="segtab" data-fe="efectivo" style="flex:1;padding:9px;font-size:13px;font-weight:500;text-align:center;border-radius:10px;cursor:pointer;color:#888;border:none;background:transparent">Efectivo</button>
+      </div>
+
+      <!-- FONDO EMERGENCIA -->
+      <div id="fe-fondo">
+        <div style="background:#FEF3E2;border-radius:14px;padding:14px;margin-bottom:12px">
+          <div style="font-size:13px;font-weight:600;color:#854F0B;margin-bottom:4px">¿Qué es un fondo de emergencia?</div>
+          <div style="font-size:12px;color:#633806;line-height:1.6">Es dinero guardado para imprevistos — perder el trabajo, una enfermedad, una reparación urgente. La meta ideal es tener entre <b>3 y 6 meses</b> de tus gastos fijos cubiertos.</div>
+        </div>
+        <div class="card">
+          <div class="ctitle">Mi fondo de emergencia</div>
+          <div class="frow"><input type="number" id="fe-actual" placeholder="¿Cuánto tienes ahorrado? ($)" inputmode="decimal"></div>
+          <div class="frow"><input type="number" id="fe-meta" placeholder="Meta (recomendado: 3-6 meses de gastos)" inputmode="decimal"></div>
+          <div class="frow"><input type="text" id="fe-donde" placeholder="¿Dónde lo tienes? (ej. Nu, Stori, cuenta)"></div>
+          <button class="btnp green" id="fe-save">Guardar fondo</button>
+        </div>
+        <div id="fe-resultado" style="display:none">
+          <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:12px">
+            <div style="background:#f7f7f7;border-radius:14px;padding:14px"><div style="font-size:11px;color:#999;margin-bottom:3px">Tienes ahorrado</div><div style="font-size:20px;font-weight:600;color:#1D9E75" id="fe-val-actual">$0</div></div>
+            <div style="background:#f7f7f7;border-radius:14px;padding:14px"><div style="font-size:11px;color:#999;margin-bottom:3px">Tu meta</div><div style="font-size:20px;font-weight:600;color:#1a1a1a" id="fe-val-meta">$0</div></div>
+          </div>
+          <div class="card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+              <div style="font-size:13px;font-weight:600;color:#1a1a1a">Progreso del fondo</div>
+              <div style="font-size:13px;font-weight:600" id="fe-pct-lbl">0%</div>
+            </div>
+            <div style="height:12px;background:#f0f0f0;border-radius:6px;overflow:hidden;margin-bottom:8px">
+              <div style="height:100%;border-radius:6px;background:#1D9E75;transition:width .3s" id="fe-prog"></div>
+            </div>
+            <div style="font-size:12px;color:#999" id="fe-falta-lbl"></div>
+            <div style="font-size:12px;color:#666;margin-top:6px" id="fe-meses-lbl"></div>
+            <div style="font-size:12px;color:#999;margin-top:4px" id="fe-donde-lbl"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EFECTIVO -->
+      <div id="fe-efectivo" style="display:none">
+        <div style="background:#E8F8F2;border-radius:14px;padding:14px;margin-bottom:12px">
+          <div style="font-size:13px;font-weight:600;color:#0F6E56;margin-bottom:4px">Control de efectivo</div>
+          <div style="font-size:12px;color:#1D6349;line-height:1.6">El dinero en cartera se pierde fácil en gastos hormiga — camión, antojo, propinas. Registra aquí cuánto traes y en qué lo gastas para que no desaparezca sin dejar rastro.</div>
+        </div>
+        <div class="card">
+          <div class="ctitle">Efectivo en cartera</div>
+          <div class="frow"><input type="number" id="ef-saldo" placeholder="¿Cuánto traes ahorita? ($)" inputmode="decimal"></div>
+          <button class="btnp green" id="ef-save">Actualizar saldo</button>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:12px">
+          <div style="background:#f7f7f7;border-radius:14px;padding:14px"><div style="font-size:11px;color:#999;margin-bottom:3px">En cartera</div><div style="font-size:20px;font-weight:600;color:#1D9E75" id="ef-val">$0</div></div>
+          <div style="background:#f7f7f7;border-radius:14px;padding:14px"><div style="font-size:11px;color:#999;margin-bottom:3px">Gastado en efectivo</div><div style="font-size:20px;font-weight:600;color:#C0392B" id="ef-gastado">$0</div></div>
+        </div>
+        <div class="card">
+          <div class="ctitle">Registrar gasto en efectivo</div>
+          <div class="frow"><input type="number" id="ef-gasto" placeholder="Monto ($)" inputmode="decimal"></div>
+          <div class="frow"><input type="text" id="ef-desc" placeholder="¿En qué? (ej. camión, tacos)"></div>
+          <button class="btnp" id="ef-add">Registrar</button>
+        </div>
+        <div class="card">
+          <div class="ctitle">Historial efectivo</div>
+          <div id="ef-list"><p class="empty">Sin gastos en efectivo aún.</p></div>
+        </div>
+      </div>
+
+    </div>
+
         <div id="sec-ia" class="section" style="padding:0">
       <div style="padding:16px 16px 8px;border-bottom:0.5px solid #f0f0f0">
         <div style="font-size:17px;font-weight:600;color:#1a1a1a">Asistente financiero</div>
@@ -329,6 +423,7 @@
     <button class="nb" data-s="metas"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg><span>Metas</span></button>
     <button class="nb" data-s="tarjetas"><svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="13" rx="2.5"/><path d="M2 11h20"/></svg><span>Tarjetas</span></button>
     <button class="nb" data-s="hogar"><svg viewBox="0 0 24 24"><path d="M3 12l9-9 9 9M5 10v9a1 1 0 001 1h4v-5h4v5h4a1 1 0 001-1v-9"/></svg><span>Hogar</span></button>
+    <button class="nb" data-s="fondo"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2zm0 5v5l3 3"/></svg><span>Fondo</span></button>
     <button class="nb" data-s="ia"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l2.5 2.5"/></svg><span>IA</span></button>
   </div>
 
@@ -368,18 +463,24 @@ document.getElementById('g-fecha').value=now.toISOString().slice(0,10);
 
 async function loadAll(){
   try{
-    const[txSnap,metSnap,tarSnap,aboSnap,budSnap]=await Promise.all([
+    const[txSnap,metSnap,tarSnap,aboSnap,budSnap,suSnap,svSnap,ahSnap]=await Promise.all([
       getDocs(query(collection(db,'transacciones'),orderBy('ts','desc'))),
       getDocs(collection(db,'metas')),
       getDocs(collection(db,'tarjetas')),
       getDocs(query(collection(db,'abonos'),orderBy('ts','desc'))),
-      getDocs(collection(db,'presupuesto'))
+      getDocs(collection(db,'presupuesto')),
+      getDocs(collection(db,'sueldos')),
+      getDocs(collection(db,'servicios')),
+      getDocs(collection(db,'ahorros_ext'))
     ]);
     txs=txSnap.docs.map(d=>({id:d.id,...d.data()}));
     metas=metSnap.docs.map(d=>({id:d.id,...d.data()}));
     tarjetas=tarSnap.docs.map(d=>({id:d.id,...d.data()}));
     abonos=aboSnap.docs.map(d=>({id:d.id,...d.data()}));
     budgets={};budSnap.docs.forEach(d=>{budgets[d.id]=d.data().limite;});
+    sueldos=suSnap.docs.map(d=>({id:d.id,...d.data()}));
+    servicios=svSnap.docs.map(d=>({id:d.id,...d.data()}));
+    ahorros_ext=ahSnap.docs.map(d=>({id:d.id,...d.data()}));
     document.getElementById('loading').style.display='none';
     sync('ok');renderAll();
   }catch(e){document.getElementById('loading').style.display='none';sync('error');console.error(e);}
@@ -594,50 +695,67 @@ function diasPara(fechaStr){
   return Math.round((f-hoy)/(1000*60*60*24));
 }
 
-document.getElementById('su-add').addEventListener('click',()=>{
+document.getElementById('su-add').addEventListener('click',async()=>{
   const nombre=document.getElementById('su-nombre').value.trim();
   const monto=parseFloat(document.getElementById('su-monto').value)||0;
   const freq=document.getElementById('su-freq').value;
   const fecha=document.getElementById('su-fecha').value;
   if(!nombre||!monto)return;
-  sueldos.push({id:Date.now(),nombre,monto,freq,fecha});
-  document.getElementById('su-nombre').value='';
-  document.getElementById('su-monto').value='';
-  document.getElementById('su-fecha').value='';
-  renderSueldos();
+  sync('saving');
+  try{
+    const ref=await addDoc(collection(db,'sueldos'),{nombre,monto,freq,fecha,ts:Date.now()});
+    sueldos.push({id:ref.id,nombre,monto,freq,fecha});
+    document.getElementById('su-nombre').value='';
+    document.getElementById('su-monto').value='';
+    document.getElementById('su-fecha').value='';
+    sync('ok');renderSueldos();
+  }catch(e){sync('error');}
 });
+
+function freqLabel2(freq){
+  if(freq==='semanal')return'Semanal';
+  if(freq==='quincenal')return'Quincenal';
+  return'Mensual';
+}
 
 function renderSueldos(){
   const list=document.getElementById('su-list');
-  const freqLabel={semanal:'Semanal',quincenal:'Quincenal',mensual:'Mensual'};
   list.innerHTML=sueldos.length?sueldos.map(s=>{
     const dias=diasPara(s.fecha);
     const dtxt=dias===null?'':dias===0?' · <span style="color:#1D9E75;font-weight:600">Hoy</span>':dias>0?` · En ${dias} días`:' · Vencido';
     return`<div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:0.5px solid #f2f2f2">
       <div style="font-size:22px">💰</div>
-      <div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:500;color:#1a1a1a">${s.nombre}</div><div style="font-size:11px;color:#999">${freqLabel[s.freq]}${dtxt}</div></div>
+      <div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:500;color:#1a1a1a">${s.nombre}</div><div style="font-size:11px;color:#999">${freqLabel2(s.freq)}${dtxt}</div></div>
       <div style="font-size:14px;font-weight:600;color:#1D9E75">${fmt(s.monto)}</div>
       <button style="background:none;border:none;cursor:pointer;color:#ccc;font-size:18px;padding:0 3px" data-sid="${s.id}">×</button>
     </div>`;}).join(''):'<p class="empty">Sin ingresos fijos aún.</p>';
-  list.querySelectorAll('[data-sid]').forEach(b=>b.addEventListener('click',()=>{sueldos=sueldos.filter(s=>s.id!=b.dataset.sid);renderSueldos();}));
+  list.querySelectorAll('[data-sid]').forEach(b=>b.addEventListener('click',async()=>{
+    sync('saving');
+    try{await deleteDoc(doc(db,'sueldos',b.dataset.sid));sueldos=sueldos.filter(s=>s.id!==b.dataset.sid);sync('ok');renderSueldos();}
+    catch(e){sync('error');}
+  }));
   const totalMes=sueldos.reduce((t,s)=>t+freqAMes2(s.freq,s.monto),0);
   document.getElementById('su-mes').textContent=fmt(totalMes);
   const prox=sueldos.filter(s=>s.fecha).sort((a,b)=>new Date(a.fecha)-new Date(b.fecha))[0];
-  if(prox){const d=diasPara(prox.fecha);const el=document.getElementById('su-prox');el.textContent=d===0?'Hoy':d===1?'Mañana':`En ${d} días`;el.style.color=d<=3?'#854F0B':'#1D9E75';}
+  if(prox){const d=diasPara(prox.fecha);const el=document.getElementById('su-prox');if(el){el.textContent=d===0?'Hoy':d===1?'Mañana':`En ${d} días`;el.style.color=d<=3?'#854F0B':'#1D9E75';}}
 }
 
-document.getElementById('sv-add').addEventListener('click',()=>{
+document.getElementById('sv-add').addEventListener('click',async()=>{
   const nombre=document.getElementById('sv-nombre').value.trim();
   const monto=parseFloat(document.getElementById('sv-monto').value)||0;
   const freq=document.getElementById('sv-freq').value;
   const cat=document.getElementById('sv-cat').value;
   const vence=document.getElementById('sv-vence').value;
   if(!nombre||!monto)return;
-  servicios.push({id:Date.now(),nombre,monto,freq,cat,vence});
-  document.getElementById('sv-nombre').value='';
-  document.getElementById('sv-monto').value='';
-  document.getElementById('sv-vence').value='';
-  renderServicios();renderAlertas();
+  sync('saving');
+  try{
+    const ref=await addDoc(collection(db,'servicios'),{nombre,monto,freq,cat,vence,ts:Date.now()});
+    servicios.push({id:ref.id,nombre,monto,freq,cat,vence});
+    document.getElementById('sv-nombre').value='';
+    document.getElementById('sv-monto').value='';
+    document.getElementById('sv-vence').value='';
+    sync('ok');renderServicios();renderAlertas();
+  }catch(e){sync('error');}
 });
 
 function renderServicios(){
@@ -653,11 +771,15 @@ function renderServicios(){
       <div style="font-size:13px;font-weight:600;color:#1a1a1a">${fmt(s.monto)}</div>
       <button style="background:none;border:none;cursor:pointer;color:#ccc;font-size:18px;padding:0 3px" data-svid="${s.id}">×</button>
     </div>`;}).join(''):'<p class="empty">Sin servicios aún.</p>';
-  list.querySelectorAll('[data-svid]').forEach(b=>b.addEventListener('click',()=>{servicios=servicios.filter(s=>s.id!=b.dataset.svid);renderServicios();renderAlertas();}));
+  list.querySelectorAll('[data-svid]').forEach(b=>b.addEventListener('click',async()=>{
+    sync('saving');
+    try{await deleteDoc(doc(db,'servicios',b.dataset.svid));servicios=servicios.filter(s=>s.id!==b.dataset.svid);sync('ok');renderServicios();renderAlertas();}
+    catch(e){sync('error');}
+  }));
   const totalMes=servicios.reduce((t,s)=>t+freqMensual2(s.freq,s.monto),0);
-  document.getElementById('sv-total').textContent=fmt(totalMes);
+  const svTotal=document.getElementById('sv-total');if(svTotal)svTotal.textContent=fmt(totalMes);
   const proxSem=servicios.filter(s=>{const d=diasPara(s.vence);return d!==null&&d>=0&&d<=7;}).length;
-  document.getElementById('sv-prox-n').textContent=proxSem;
+  const svProx=document.getElementById('sv-prox-n');if(svProx)svProx.textContent=proxSem;
 }
 
 function renderAlertas(){
@@ -670,17 +792,21 @@ function renderAlertas(){
   wrap.innerHTML=html;
 }
 
-document.getElementById('ah-add').addEventListener('click',()=>{
+document.getElementById('ah-add').addEventListener('click',async()=>{
   const nombre=document.getElementById('ah-nombre').value.trim();
   const saldo=parseFloat(document.getElementById('ah-saldo').value)||0;
   const tipo=document.getElementById('ah-tipo').value;
   const rend=parseFloat(document.getElementById('ah-rend').value)||0;
   if(!nombre||!saldo)return;
-  ahorros_ext.push({id:Date.now(),nombre,saldo,tipo,rend});
-  document.getElementById('ah-nombre').value='';
-  document.getElementById('ah-saldo').value='';
-  document.getElementById('ah-rend').value='';
-  renderAhorrosExt();
+  sync('saving');
+  try{
+    const ref=await addDoc(collection(db,'ahorros_ext'),{nombre,saldo,tipo,rend,ts:Date.now()});
+    ahorros_ext.push({id:ref.id,nombre,saldo,tipo,rend});
+    document.getElementById('ah-nombre').value='';
+    document.getElementById('ah-saldo').value='';
+    document.getElementById('ah-rend').value='';
+    sync('ok');renderAhorrosExt();
+  }catch(e){sync('error');}
 });
 
 const tipoIcon2={cuenta:'🏦',cajita:'🏺',efectivo:'💵',inversion:'📈'};
@@ -694,15 +820,129 @@ function renderAhorrosExt(){
     <div style="font-size:14px;font-weight:600;color:#1D9E75">${fmt(a.saldo)}</div>
     <button style="background:none;border:none;cursor:pointer;color:#ccc;font-size:18px;padding:0 3px" data-ahid="${a.id}">×</button>
   </div>`).join(''):'<p class="empty">Sin ahorros registrados.</p>';
-  list.querySelectorAll('[data-ahid]').forEach(b=>b.addEventListener('click',()=>{ahorros_ext=ahorros_ext.filter(a=>a.id!=b.dataset.ahid);renderAhorrosExt();}));
+  list.querySelectorAll('[data-ahid]').forEach(b=>b.addEventListener('click',async()=>{
+    sync('saving');
+    try{await deleteDoc(doc(db,'ahorros_ext',b.dataset.ahid));ahorros_ext=ahorros_ext.filter(a=>a.id!==b.dataset.ahid);sync('ok');renderAhorrosExt();}
+    catch(e){sync('error');}
+  }));
   const total=ahorros_ext.reduce((t,a)=>t+a.saldo,0);
   const rendMes=ahorros_ext.reduce((t,a)=>t+(a.saldo*a.rend/100/12),0);
-  document.getElementById('ah-total').textContent=fmt(total);
-  document.getElementById('ah-rend-mes').textContent=fmt(rendMes);
+  const ahTotal=document.getElementById('ah-total');if(ahTotal)ahTotal.textContent=fmt(total);
+  const ahRend=document.getElementById('ah-rend-mes');if(ahRend)ahRend.textContent=fmt(rendMes);
 }
 // ========== FIN HOGAR ==========
 
+
+// ========== FONDO EMERGENCIA + EFECTIVO ==========
+let fondoData={actual:0,meta:0,donde:''}, efectivoData={saldo:0,gastos:[]};
+
+document.querySelectorAll('[data-fe]').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('[data-fe]').forEach(x=>{x.style.background='transparent';x.style.color='#888';x.style.border='none';});
+  b.style.background='#fff';b.style.color='#1a1a1a';b.style.border='0.5px solid #ddd';
+  ['fe-fondo','fe-efectivo'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display='none';});
+  const target=document.getElementById('fe-'+b.dataset.fe);
+  if(target)target.style.display='block';
+}));
+
+async function loadFondo(){
+  try{
+    const snap=await getDocs(collection(db,'fondo_emergencia'));
+    if(!snap.empty){
+      const d=snap.docs[0].data();
+      fondoData={id:snap.docs[0].id,...d};
+      document.getElementById('fe-actual').value=d.actual||'';
+      document.getElementById('fe-meta').value=d.meta||'';
+      document.getElementById('fe-donde').value=d.donde||'';
+      renderFondo();
+    }
+    const efSnap=await getDocs(query(collection(db,'efectivo_gastos'),orderBy('ts','desc')));
+    efectivoData.gastos=efSnap.docs.map(d=>({id:d.id,...d.data()}));
+    const efSaldoSnap=await getDocs(collection(db,'efectivo_saldo'));
+    if(!efSaldoSnap.empty)efectivoData.saldo=efSaldoSnap.docs[0].data().saldo||0;
+    renderEfectivo();
+  }catch(e){console.error(e);}
+}
+
+document.getElementById('fe-save').addEventListener('click',async()=>{
+  const actual=parseFloat(document.getElementById('fe-actual').value)||0;
+  const meta=parseFloat(document.getElementById('fe-meta').value)||0;
+  const donde=document.getElementById('fe-donde').value.trim();
+  if(!actual&&!meta)return;
+  sync('saving');
+  try{
+    if(fondoData.id){await setDoc(doc(db,'fondo_emergencia',fondoData.id),{actual,meta,donde});}
+    else{const ref=await addDoc(collection(db,'fondo_emergencia'),{actual,meta,donde});fondoData.id=ref.id;}
+    fondoData={...fondoData,actual,meta,donde};
+    sync('ok');renderFondo();
+  }catch(e){sync('error');}
+});
+
+function renderFondo(){
+  const res=document.getElementById('fe-resultado');
+  if(!fondoData.actual&&!fondoData.meta){res.style.display='none';return;}
+  res.style.display='block';
+  document.getElementById('fe-val-actual').textContent=fmt(fondoData.actual);
+  document.getElementById('fe-val-meta').textContent=fmt(fondoData.meta);
+  const pct=fondoData.meta>0?Math.min(100,Math.round(fondoData.actual/fondoData.meta*100)):0;
+  document.getElementById('fe-pct-lbl').textContent=pct+'%';
+  document.getElementById('fe-pct-lbl').style.color=pct>=100?'#1D9E75':pct>=50?'#854F0B':'#C0392B';
+  document.getElementById('fe-prog').style.width=pct+'%';
+  document.getElementById('fe-prog').style.background=pct>=100?'#1D9E75':pct>=50?'#EF9F27':'#E24B4A';
+  const falta=Math.max(0,fondoData.meta-fondoData.actual);
+  document.getElementById('fe-falta-lbl').textContent=falta>0?`Falta ${fmt(falta)} para completar tu fondo`:'¡Fondo de emergencia completo! 🎉';
+  const gastosMes=txs.filter(t=>t.tipo==='gasto').reduce((s,t)=>s+t.monto,0);
+  if(gastosMes>0){const mesesCubiertos=(fondoData.actual/gastosMes).toFixed(1);document.getElementById('fe-meses-lbl').textContent=`Con lo que tienes cubres aproximadamente ${mesesCubiertos} meses de gastos`;}
+  if(fondoData.donde)document.getElementById('fe-donde-lbl').textContent=`Guardado en: ${fondoData.donde}`;
+}
+
+document.getElementById('ef-save').addEventListener('click',async()=>{
+  const saldo=parseFloat(document.getElementById('ef-saldo').value)||0;
+  sync('saving');
+  try{
+    const snap=await getDocs(collection(db,'efectivo_saldo'));
+    if(!snap.empty){await setDoc(doc(db,'efectivo_saldo',snap.docs[0].id),{saldo});}
+    else{await addDoc(collection(db,'efectivo_saldo'),{saldo});}
+    efectivoData.saldo=saldo;
+    document.getElementById('ef-saldo').value='';
+    sync('ok');renderEfectivo();
+  }catch(e){sync('error');}
+});
+
+document.getElementById('ef-add').addEventListener('click',async()=>{
+  const monto=parseFloat(document.getElementById('ef-gasto').value)||0;
+  const desc=document.getElementById('ef-desc').value.trim()||'Efectivo';
+  if(!monto)return;
+  sync('saving');
+  try{
+    const ts=Date.now();
+    const ref=await addDoc(collection(db,'efectivo_gastos'),{monto,desc,fecha:new Date().toLocaleDateString('es-MX'),ts});
+    efectivoData.gastos.unshift({id:ref.id,monto,desc,fecha:new Date().toLocaleDateString('es-MX'),ts});
+    efectivoData.saldo=Math.max(0,efectivoData.saldo-monto);
+    const snap=await getDocs(collection(db,'efectivo_saldo'));
+    if(!snap.empty)await setDoc(doc(db,'efectivo_saldo',snap.docs[0].id),{saldo:efectivoData.saldo});
+    document.getElementById('ef-gasto').value='';
+    document.getElementById('ef-desc').value='';
+    sync('ok');renderEfectivo();
+  }catch(e){sync('error');}
+});
+
+function renderEfectivo(){
+  const efVal=document.getElementById('ef-val');if(efVal)efVal.textContent=fmt(efectivoData.saldo);
+  const totalGastado=efectivoData.gastos.reduce((s,g)=>s+g.monto,0);
+  const efGas=document.getElementById('ef-gastado');if(efGas)efGas.textContent=fmt(totalGastado);
+  const list=document.getElementById('ef-list');
+  if(!list)return;
+  list.innerHTML=efectivoData.gastos.length?efectivoData.gastos.slice(0,10).map(g=>`
+    <div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:0.5px solid #f2f2f2">
+      <div style="font-size:22px">💵</div>
+      <div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:500;color:#1a1a1a">${g.desc}</div><div style="font-size:11px;color:#999">${g.fecha}</div></div>
+      <div style="font-size:14px;font-weight:600;color:#C0392B">-${fmt(g.monto)}</div>
+    </div>`).join(''):'<p class="empty">Sin gastos en efectivo aún.</p>';
+}
+// ========== FIN FONDO ==========
+
 loadAll();
+loadFondo();
 </script>
 </body>
 </html>
