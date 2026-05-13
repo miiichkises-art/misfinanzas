@@ -142,10 +142,6 @@
 
     <div id="sec-gastos" class="section">
       <div style="height:6px"></div>
-      <div class="seg">
-        <button class="segtab active" id="sg-gasto">Gasto</button>
-        <button class="segtab" id="sg-ingreso">Ingreso</button>
-      </div>
       <div class="card">
         <div class="frow"><input type="number" id="g-monto" class="big" placeholder="$0.00" inputmode="decimal"></div>
         <div class="frow"><select id="g-cat">
@@ -284,9 +280,10 @@
     <div id="sec-hogar" class="section">
       <div style="height:6px"></div>
       <div style="display:flex;background:#f0f0f0;border-radius:12px;padding:3px;margin-bottom:14px">
-        <button class="segtab active" data-h="sueldo" style="flex:1;padding:9px;font-size:13px;font-weight:500;text-align:center;border-radius:10px;cursor:pointer;color:#888;border:none;background:transparent">Sueldo</button>
-        <button class="segtab" data-h="servicios" style="flex:1;padding:9px;font-size:13px;font-weight:500;text-align:center;border-radius:10px;cursor:pointer;color:#888;border:none;background:transparent">Servicios</button>
-        <button class="segtab" data-h="ahorros-ext" style="flex:1;padding:9px;font-size:13px;font-weight:500;text-align:center;border-radius:10px;cursor:pointer;color:#888;border:none;background:transparent">Ahorros ext.</button>
+        <button class="segtab active" data-h="sueldo" style="flex:1;padding:9px;font-size:12px;font-weight:500;text-align:center;border-radius:10px;cursor:pointer;color:#888;border:none;background:transparent">Sueldo</button>
+        <button class="segtab" data-h="servicios" style="flex:1;padding:9px;font-size:12px;font-weight:500;text-align:center;border-radius:10px;cursor:pointer;color:#888;border:none;background:transparent">Servicios</button>
+        <button class="segtab" data-h="ahorros-ext" style="flex:1;padding:9px;font-size:12px;font-weight:500;text-align:center;border-radius:10px;cursor:pointer;color:#888;border:none;background:transparent">Ahorros</button>
+        <button class="segtab" data-h="efectivo-h" style="flex:1;padding:9px;font-size:12px;font-weight:500;text-align:center;border-radius:10px;cursor:pointer;color:#888;border:none;background:transparent">💵 Efectivo</button>
       </div>
       <div id="h-sueldo">
         <div class="card"><div class="ctitle">Agregar ingreso fijo</div>
@@ -328,6 +325,34 @@
           <div style="background:#f7f7f7;border-radius:14px;padding:14px"><div style="font-size:11px;color:#999;margin-bottom:3px">Rendimiento / mes</div><div style="font-size:20px;font-weight:600;color:#1D9E75" id="ah-rend-mes">$0</div></div>
         </div>
       </div>
+
+      <!-- EFECTIVO EN HOGAR -->
+      <div id="h-efectivo-h" style="display:none">
+        <div style="background:#E8F8F2;border-radius:14px;padding:14px;margin-bottom:12px">
+          <div style="font-size:13px;font-weight:600;color:#0F6E56;margin-bottom:4px">💵 Control de efectivo</div>
+          <div style="font-size:12px;color:#1D6349;line-height:1.6">Registra cuánto traes en cartera y en qué lo gastas. El efectivo es el más difícil de rastrear — aquí no se pierde nada.</div>
+        </div>
+        <div class="card">
+          <div class="ctitle">Saldo en cartera</div>
+          <div class="frow"><input type="number" id="ef-saldo" placeholder="¿Cuánto traes ahorita? ($)" inputmode="decimal"></div>
+          <button class="btnp green" id="ef-save">Actualizar saldo</button>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:12px">
+          <div style="background:#f7f7f7;border-radius:14px;padding:14px"><div style="font-size:11px;color:#999;margin-bottom:3px">En cartera</div><div style="font-size:20px;font-weight:600;color:#1D9E75" id="ef-val">$0</div></div>
+          <div style="background:#f7f7f7;border-radius:14px;padding:14px"><div style="font-size:11px;color:#999;margin-bottom:3px">Gastado en efectivo</div><div style="font-size:20px;font-weight:600;color:#C0392B" id="ef-gastado">$0</div></div>
+        </div>
+        <div class="card">
+          <div class="ctitle">Registrar gasto en efectivo</div>
+          <div class="frow"><input type="number" id="ef-gasto" placeholder="Monto ($)" inputmode="decimal"></div>
+          <div class="frow"><input type="text" id="ef-desc" placeholder="¿En qué? (ej. camión, tacos)"></div>
+          <button class="btnp" id="ef-add">Registrar</button>
+        </div>
+        <div class="card">
+          <div class="ctitle">Historial de efectivo</div>
+          <div id="ef-list"><p class="empty">Sin gastos en efectivo aún.</p></div>
+        </div>
+      </div>
+
     </div>
 
         <!-- FONDO DE EMERGENCIA + EFECTIVO -->
@@ -440,10 +465,7 @@
         <div id="sec-fondo" class="section">
       <div style="height:6px"></div>
 
-      <div style="display:flex;background:#f0f0f0;border-radius:12px;padding:3px;margin-bottom:14px">
-        <button class="segtab active" data-fe="fondo" style="flex:1;padding:9px;font-size:13px;font-weight:500;text-align:center;border-radius:10px;cursor:pointer;color:#888;border:none;background:transparent">Fondo emergencia</button>
-        <button class="segtab" data-fe="efectivo" style="flex:1;padding:9px;font-size:13px;font-weight:500;text-align:center;border-radius:10px;cursor:pointer;color:#888;border:none;background:transparent">Efectivo</button>
-      </div>
+
 
       <!-- FONDO EMERGENCIA -->
       <div id="fe-fondo">
@@ -478,32 +500,7 @@
         </div>
       </div>
 
-      <!-- EFECTIVO -->
-      <div id="fe-efectivo" style="display:none">
-        <div style="background:#E8F8F2;border-radius:14px;padding:14px;margin-bottom:12px">
-          <div style="font-size:13px;font-weight:600;color:#0F6E56;margin-bottom:4px">Control de efectivo</div>
-          <div style="font-size:12px;color:#1D6349;line-height:1.6">El dinero en cartera se pierde fácil en gastos hormiga — camión, antojo, propinas. Registra aquí cuánto traes y en qué lo gastas para que no desaparezca sin dejar rastro.</div>
-        </div>
-        <div class="card">
-          <div class="ctitle">Efectivo en cartera</div>
-          <div class="frow"><input type="number" id="ef-saldo" placeholder="¿Cuánto traes ahorita? ($)" inputmode="decimal"></div>
-          <button class="btnp green" id="ef-save">Actualizar saldo</button>
-        </div>
-        <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:12px">
-          <div style="background:#f7f7f7;border-radius:14px;padding:14px"><div style="font-size:11px;color:#999;margin-bottom:3px">En cartera</div><div style="font-size:20px;font-weight:600;color:#1D9E75" id="ef-val">$0</div></div>
-          <div style="background:#f7f7f7;border-radius:14px;padding:14px"><div style="font-size:11px;color:#999;margin-bottom:3px">Gastado en efectivo</div><div style="font-size:20px;font-weight:600;color:#C0392B" id="ef-gastado">$0</div></div>
-        </div>
-        <div class="card">
-          <div class="ctitle">Registrar gasto en efectivo</div>
-          <div class="frow"><input type="number" id="ef-gasto" placeholder="Monto ($)" inputmode="decimal"></div>
-          <div class="frow"><input type="text" id="ef-desc" placeholder="¿En qué? (ej. camión, tacos)"></div>
-          <button class="btnp" id="ef-add">Registrar</button>
-        </div>
-        <div class="card">
-          <div class="ctitle">Historial efectivo</div>
-          <div id="ef-list"><p class="empty">Sin gastos en efectivo aún.</p></div>
-        </div>
-      </div>
+
 
     </div>
 
@@ -619,8 +616,7 @@ document.querySelectorAll('.nb').forEach(b=>b.addEventListener('click',()=>{
   b.classList.add('active');document.getElementById('sec-'+b.dataset.s).classList.add('active');
 }));
 
-document.getElementById('sg-gasto').addEventListener('click',()=>{tipoGasto='gasto';document.getElementById('sg-gasto').classList.add('active');document.getElementById('sg-ingreso').classList.remove('active');});
-document.getElementById('sg-ingreso').addEventListener('click',()=>{tipoGasto='ingreso';document.getElementById('sg-ingreso').classList.add('active');document.getElementById('sg-gasto').classList.remove('active');});
+tipoGasto='gasto'; // Solo gastos en esta sección
 
 document.getElementById('g-add').addEventListener('click',async()=>{
   const monto=parseFloat(document.getElementById('g-monto').value);if(!monto||monto<=0)return;
@@ -789,7 +785,7 @@ const now2=new Date();
 document.querySelectorAll('[data-h]').forEach(b=>b.addEventListener('click',()=>{
   document.querySelectorAll('[data-h]').forEach(x=>{x.style.background='transparent';x.style.color='#888';x.style.border='none';});
   b.style.background='#fff';b.style.color='#1a1a1a';b.style.border='0.5px solid #ddd';
-  ['h-sueldo','h-servicios','h-ahorros-ext'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display='none';});
+  ['h-sueldo','h-servicios','h-ahorros-ext','h-efectivo-h'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display='none';});
   const target=document.getElementById('h-'+b.dataset.h);
   if(target)target.style.display='block';
   if(b.dataset.h==='servicios')renderAlertas();
@@ -1107,7 +1103,7 @@ let fondoData={actual:0,meta:0,donde:''}, efectivoData={saldo:0,gastos:[]};
 document.querySelectorAll('[data-fe]').forEach(b=>b.addEventListener('click',()=>{
   document.querySelectorAll('[data-fe]').forEach(x=>{x.style.background='transparent';x.style.color='#888';x.style.border='none';});
   b.style.background='#fff';b.style.color='#1a1a1a';b.style.border='0.5px solid #ddd';
-  ['fe-fondo','fe-efectivo'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display='none';});
+  const feEl=document.getElementById('fe-fondo');if(feEl)feEl.style.display='block';
   const target=document.getElementById('fe-'+b.dataset.fe);
   if(target)target.style.display='block';
 }));
