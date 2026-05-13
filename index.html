@@ -552,7 +552,7 @@ async function sendIA(msg){
   el.innerHTML+=`<div class="ia-msg u">${msg}</div><div class="ia-msg a" id="ia-t" style="opacity:.5">...</div>`;
   el.scrollTop=el.scrollHeight;btn.disabled=true;
   try{
-    const res=await fetch('/.netlify/functions/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({system:buildCtx(),messages:[{role:'user',content:msg}]})});
+    const res=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({system:buildCtx(),messages:[{role:'user',content:msg}]})});
     const data=await res.json();const reply=data.content?.find(b=>b.type==='text')?.text||'No pude procesar eso.';
     const t=document.getElementById('ia-t');if(t){t.textContent=reply;t.style.opacity='1';t.removeAttribute('id');}
   }catch(e){const t=document.getElementById('ia-t');if(t){t.textContent='Error al conectar.';t.removeAttribute('id');}}
