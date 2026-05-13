@@ -288,9 +288,9 @@
     <div id="sec-hogar" class="section">
       <div style="height:6px"></div>
       <div style="display:flex;background:#DFF0E8;border-radius:12px;padding:3px;margin-bottom:14px">
-        <button class="segtab active" data-h="sueldo" style="flex:1;padding:9px;font-size:12px;font-weight:500;text-align:center;border-radius:10px;cursor:pointer;color:#888;border:none;background:transparent">Sueldo</button>
-        <button class="segtab" data-h="servicios" style="flex:1;padding:9px;font-size:12px;font-weight:500;text-align:center;border-radius:10px;cursor:pointer;color:#888;border:none;background:transparent">Servicios</button>
-        <button class="segtab" data-h="ahorros-ext" style="flex:1;padding:9px;font-size:12px;font-weight:500;text-align:center;border-radius:10px;cursor:pointer;color:#888;border:none;background:transparent">Ahorros</button>
+        <button class="segtab active" data-h="sueldo" style="flex:1;padding:9px;font-size:12px;font-weight:500;text-align:center;border-radius:10px;cursor:pointer;color:#888;border:none;background:transparent">💰 Sueldo</button>
+        <button class="segtab" data-h="servicios" style="flex:1;padding:9px;font-size:12px;font-weight:500;text-align:center;border-radius:10px;cursor:pointer;color:#888;border:none;background:transparent">🔔 Servicios</button>
+        <button class="segtab" data-h="ahorros-ext" style="flex:1;padding:9px;font-size:12px;font-weight:500;text-align:center;border-radius:10px;cursor:pointer;color:#888;border:none;background:transparent">🏺 Ahorros</button>
         <button class="segtab" data-h="efectivo-h" style="flex:1;padding:9px;font-size:12px;font-weight:500;text-align:center;border-radius:10px;cursor:pointer;color:#888;border:none;background:transparent">💵 Efectivo</button>
       </div>
       <div id="h-sueldo">
@@ -302,8 +302,8 @@
         </div>
         <div class="card"><div class="ctitle">💰 Mis ingresos fijos</div><div id="su-list"><p class="empty">Sin ingresos fijos aún.</p></div></div>
         <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:12px">
-          <div style="background:#E8F4EF;border-radius:14px;padding:14px"><div style="font-size:11px;color:#6B9E8A;margin-bottom:3px">Al mes (estimado)</div><div style="font-size:20px;font-weight:600;color:#0D1F1A" id="su-mes">$0</div></div>
-          <div style="background:#E8F4EF;border-radius:14px;padding:14px"><div style="font-size:11px;color:#6B9E8A;margin-bottom:3px">Próximo pago</div><div style="font-size:15px;font-weight:600" id="su-prox">—</div></div>
+          <div style="background:#E8F4EF;border-radius:14px;padding:14px"><div style="font-size:11px;color:#6B9E8A;margin-bottom:3px">💰 Al mes (estimado)</div><div style="font-size:20px;font-weight:600;color:#0D1F1A" id="su-mes">$0</div></div>
+          <div style="background:#E8F4EF;border-radius:14px;padding:14px"><div style="font-size:11px;color:#6B9E8A;margin-bottom:3px">📅 Próximo pago</div><div style="font-size:15px;font-weight:600" id="su-prox">—</div></div>
         </div>
       </div>
       <div id="h-servicios" style="display:none">
@@ -316,8 +316,8 @@
         </div>
         <div class="card"><div class="ctitle">Mis servicios</div><div id="sv-list"><p class="empty">Sin servicios aún.</p></div></div>
         <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:12px">
-          <div style="background:#E8F4EF;border-radius:14px;padding:14px"><div style="font-size:11px;color:#6B9E8A;margin-bottom:3px">Gasto fijo / mes</div><div style="font-size:20px;font-weight:600;color:#0D1F1A" id="sv-total">$0</div></div>
-          <div style="background:#E8F4EF;border-radius:14px;padding:14px"><div style="font-size:11px;color:#6B9E8A;margin-bottom:3px">Vencen esta semana</div><div style="font-size:20px;font-weight:600;color:#854F0B" id="sv-prox-n">0</div></div>
+          <div style="background:#E8F4EF;border-radius:14px;padding:14px"><div style="font-size:11px;color:#6B9E8A;margin-bottom:3px">📆 Gasto fijo / mes</div><div style="font-size:20px;font-weight:600;color:#0D1F1A" id="sv-total">$0</div></div>
+          <div style="background:#E8F4EF;border-radius:14px;padding:14px"><div style="font-size:11px;color:#6B9E8A;margin-bottom:3px">⚠️ Vencen esta semana</div><div style="font-size:20px;font-weight:600;color:#854F0B" id="sv-prox-n">0</div></div>
         </div>
       </div>
       <div id="h-ahorros-ext" style="display:none">
@@ -329,8 +329,8 @@
         </div>
         <div class="card"><div class="ctitle">🏦 Mis ahorros externos</div><div id="ah-list"><p class="empty">Sin ahorros registrados.</p></div></div>
         <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:12px">
-          <div style="background:#E8F4EF;border-radius:14px;padding:14px"><div style="font-size:11px;color:#6B9E8A;margin-bottom:3px">Total guardado</div><div style="font-size:20px;font-weight:600;color:#0D5C4A" id="ah-total">$0</div></div>
-          <div style="background:#E8F4EF;border-radius:14px;padding:14px"><div style="font-size:11px;color:#6B9E8A;margin-bottom:3px">Rendimiento / mes</div><div style="font-size:20px;font-weight:600;color:#0D5C4A" id="ah-rend-mes">$0</div></div>
+          <div style="background:#E8F4EF;border-radius:14px;padding:14px"><div style="font-size:11px;color:#6B9E8A;margin-bottom:3px">🏦 Total guardado</div><div style="font-size:20px;font-weight:600;color:#0D5C4A" id="ah-total">$0</div></div>
+          <div style="background:#E8F4EF;border-radius:14px;padding:14px"><div style="font-size:11px;color:#6B9E8A;margin-bottom:3px">📈 Rendimiento / mes</div><div style="font-size:20px;font-weight:600;color:#0D5C4A" id="ah-rend-mes">$0</div></div>
         </div>
       </div>
 
@@ -346,8 +346,8 @@
           <button class="btnp green" id="ef-save">Actualizar saldo</button>
         </div>
         <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:12px">
-          <div style="background:#E8F4EF;border-radius:14px;padding:14px"><div style="font-size:11px;color:#6B9E8A;margin-bottom:3px">En cartera</div><div style="font-size:20px;font-weight:600;color:#0D5C4A" id="ef-val">$0</div></div>
-          <div style="background:#E8F4EF;border-radius:14px;padding:14px"><div style="font-size:11px;color:#6B9E8A;margin-bottom:3px">Gastado en efectivo</div><div style="font-size:20px;font-weight:600;color:#A32D2D" id="ef-gastado">$0</div></div>
+          <div style="background:#E8F4EF;border-radius:14px;padding:14px"><div style="font-size:11px;color:#6B9E8A;margin-bottom:3px">👛 En cartera</div><div style="font-size:20px;font-weight:600;color:#0D5C4A" id="ef-val">$0</div></div>
+          <div style="background:#E8F4EF;border-radius:14px;padding:14px"><div style="font-size:11px;color:#6B9E8A;margin-bottom:3px">💸 Gastado en efectivo</div><div style="font-size:20px;font-weight:600;color:#A32D2D" id="ef-gastado">$0</div></div>
         </div>
         <div class="card">
           <div class="ctitle">💵 Registrar gasto en efectivo</div>
@@ -635,6 +635,52 @@
         <button onclick="cerrarModal()" style="width:100%;padding:13px;font-size:14px;font-weight:500;background:transparent;color:#6B9E8A;border:0.5px solid #C8E0D8;border-radius:14px;cursor:pointer">Cancelar</button>
       </div>
 
+      <!-- CAMPOS META -->
+      <div id="modal-meta-fields" style="display:none">
+        <input type="hidden" id="modal-m-id">
+        <div style="margin-bottom:10px"><input type="text" id="modal-m-nom" placeholder="Nombre de la meta" style="width:100%;padding:12px;font-size:15px;border:0.5px solid #C8E0D8;border-radius:12px;background:#F0F8F4;color:#0D1F1A;outline:none"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
+          <input type="number" id="modal-m-tot" placeholder="Total a ahorrar ($)" inputmode="decimal" style="padding:12px;font-size:15px;border:0.5px solid #C8E0D8;border-radius:12px;background:#F0F8F4;color:#0D1F1A;outline:none">
+          <input type="number" id="modal-m-act" placeholder="Ya ahorrado ($)" inputmode="decimal" style="padding:12px;font-size:15px;border:0.5px solid #C8E0D8;border-radius:12px;background:#F0F8F4;color:#0D1F1A;outline:none">
+        </div>
+        <div style="font-size:12px;color:#6B9E8A;margin-bottom:10px">O agrega / retira dinero rápido:</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px">
+          <div>
+            <div style="font-size:11px;color:#0D5C4A;margin-bottom:4px">➕ Abonar</div>
+            <input type="number" id="modal-m-abonar" placeholder="$0" inputmode="decimal" style="width:100%;padding:12px;font-size:15px;border:0.5px solid #C8E0D8;border-radius:12px;background:#E8F4EF;color:#0D1F1A;outline:none">
+          </div>
+          <div>
+            <div style="font-size:11px;color:#A32D2D;margin-bottom:4px">➖ Retirar</div>
+            <input type="number" id="modal-m-retirar" placeholder="$0" inputmode="decimal" style="width:100%;padding:12px;font-size:15px;border:0.5px solid #F5C4C4;border-radius:12px;background:#FEF0F0;color:#0D1F1A;outline:none">
+          </div>
+        </div>
+        <button id="modal-m-save" style="width:100%;padding:14px;font-size:15px;font-weight:500;background:#0D5C4A;color:#fff;border:none;border-radius:14px;cursor:pointer;margin-bottom:8px">Guardar cambios</button>
+        <button onclick="cerrarModal()" style="width:100%;padding:13px;font-size:14px;font-weight:500;background:transparent;color:#6B9E8A;border:0.5px solid #C8E0D8;border-radius:14px;cursor:pointer">Cancelar</button>
+      </div>
+
+      <!-- CAMPOS META -->
+      <div id="modal-meta-fields" style="display:none">
+        <input type="hidden" id="modal-m-id">
+        <div style="margin-bottom:10px"><input type="text" id="modal-m-nom" placeholder="Nombre de la meta" style="width:100%;padding:12px;font-size:15px;border:0.5px solid #C8E0D8;border-radius:12px;background:#F0F8F4;color:#0D1F1A;outline:none"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
+          <input type="number" id="modal-m-tot" placeholder="Meta total ($)" inputmode="decimal" style="padding:12px;font-size:15px;border:0.5px solid #C8E0D8;border-radius:12px;background:#F0F8F4;color:#0D1F1A;outline:none">
+          <input type="number" id="modal-m-act" placeholder="Ya ahorrado ($)" inputmode="decimal" style="padding:12px;font-size:15px;border:0.5px solid #C8E0D8;border-radius:12px;background:#F0F8F4;color:#0D1F1A;outline:none">
+        </div>
+        <div style="font-size:12px;color:#6B9E8A;margin-bottom:8px">Movimiento rápido:</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px">
+          <div>
+            <div style="font-size:11px;color:#0D5C4A;font-weight:500;margin-bottom:4px">➕ Abonar</div>
+            <input type="number" id="modal-m-abonar" placeholder="$0" inputmode="decimal" style="width:100%;padding:12px;font-size:15px;border:0.5px solid #C8E0D8;border-radius:12px;background:#E8F4EF;color:#0D1F1A;outline:none">
+          </div>
+          <div>
+            <div style="font-size:11px;color:#A32D2D;font-weight:500;margin-bottom:4px">➖ Retirar</div>
+            <input type="number" id="modal-m-retirar" placeholder="$0" inputmode="decimal" style="width:100%;padding:12px;font-size:15px;border:0.5px solid #F5C4C4;border-radius:12px;background:#FEF0F0;color:#0D1F1A;outline:none">
+          </div>
+        </div>
+        <button id="modal-m-save" style="width:100%;padding:14px;font-size:15px;font-weight:500;background:#0D5C4A;color:#fff;border:none;border-radius:14px;cursor:pointer;margin-bottom:8px">Guardar cambios</button>
+        <button onclick="cerrarModal()" style="width:100%;padding:13px;font-size:14px;font-weight:500;background:transparent;color:#6B9E8A;border:0.5px solid #C8E0D8;border-radius:14px;cursor:pointer">Cancelar</button>
+      </div>
+
     </div>
   </div>
 </div>
@@ -802,7 +848,11 @@ document.getElementById('m-add').addEventListener('click',async()=>{
 function renderMetas(){
   const el=document.getElementById('m-list');
   if(!metas.length){el.innerHTML='<p class="empty">Sin metas aún.</p>';return;}
-  el.innerHTML=metas.map(m=>{const p=Math.min(100,Math.round(m.act/m.tot*100));const f=Math.max(0,m.tot-m.act);return`<div style="margin-bottom:16px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px"><span style="font-size:15px;font-weight:600;color:#0D1F1A">${m.nom}</span><button class="delbtn" data-id="${m.id}">×</button></div><div class="gbar"><div class="gfill" style="width:${p}%"></div></div><div style="display:flex;justify-content:space-between;font-size:12px;color:#6B9E8A;margin-top:3px"><span>${fmt(m.act)} ahorrado · ${p}%</span><span>Falta ${fmt(f)}</span></div></div>`;}).join('');
+  el.innerHTML=metas.map(m=>{const p=Math.min(100,Math.round(m.act/m.tot*100));const f=Math.max(0,m.tot-m.act);return`<div style="margin-bottom:16px;cursor:pointer" data-mid="${m.id}"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px"><span style="font-size:15px;font-weight:500;color:#0D1F1A">${m.nom}</span><div style="display:flex;align-items:center;gap:6px"><span style="font-size:11px;color:#0D5C4A;padding:2px 8px;background:#E8F4EF;border-radius:8px">✏️ Editar</span><button class="delbtn" data-id="${m.id}" onclick="event.stopPropagation()">×</button></div></div><div class="gbar"><div class="gfill" style="width:${p}%"></div></div><div style="display:flex;justify-content:space-between;font-size:12px;color:#6B9E8A;margin-top:3px"><span>${fmt(m.act)} ahorrado · ${p}%</span><span>Falta ${fmt(f)}</span></div></div>`;}).join('');
+  el.querySelectorAll('[data-mid]').forEach(row=>row.addEventListener('click',()=>{
+    const m=metas.find(m=>m.id===row.dataset.mid);
+    if(m)abrirEditMeta(m);
+  }));
   el.querySelectorAll('.delbtn').forEach(b=>b.addEventListener('click',async()=>{
     sync('saving');
     try{await deleteDoc(doc(db,'metas',b.dataset.id));metas=metas.filter(m=>m.id!==b.dataset.id);sync('ok');renderMetas();renderResumen();}
@@ -1290,6 +1340,76 @@ document.getElementById('modal-t-save').addEventListener('click',async()=>{
     sync('ok');cerrarModal();renderTarjetas();renderResumen();
   }catch(e){sync('error');}
 });
+
+function abrirEditMeta(m){
+  document.getElementById('modal-titulo').textContent='🎯 Editar meta';
+  document.getElementById('modal-gasto-fields').style.display='none';
+  document.getElementById('modal-tarjeta-fields').style.display='none';
+  document.getElementById('modal-meta-fields').style.display='block';
+  document.getElementById('modal-m-id').value=m.id;
+  document.getElementById('modal-m-nom').value=m.nom;
+  document.getElementById('modal-m-tot').value=m.tot;
+  document.getElementById('modal-m-act').value=m.act;
+  document.getElementById('modal-m-abonar').value='';
+  document.getElementById('modal-m-retirar').value='';
+  abrirModal();
+}
+
+document.getElementById('modal-m-save').addEventListener('click',async()=>{
+  const id=document.getElementById('modal-m-id').value;
+  const nom=document.getElementById('modal-m-nom').value.trim();
+  const tot=parseFloat(document.getElementById('modal-m-tot').value)||0;
+  let act=parseFloat(document.getElementById('modal-m-act').value)||0;
+  const abonar=parseFloat(document.getElementById('modal-m-abonar').value)||0;
+  const retirar=parseFloat(document.getElementById('modal-m-retirar').value)||0;
+  if(!id||!nom)return;
+  if(abonar>0)act=act+abonar;
+  if(retirar>0)act=Math.max(0,act-retirar);
+  act=Math.min(act,tot);
+  sync('saving');
+  try{
+    await setDoc(doc(db,'metas',id),{nom,tot,act});
+    const idx=metas.findIndex(m=>m.id===id);
+    if(idx>-1)metas[idx]={...metas[idx],nom,tot,act};
+    sync('ok');cerrarModal();renderMetas();renderResumen();
+  }catch(e){sync('error');}
+});
+
+
+function abrirEditMeta(m){
+  document.getElementById('modal-titulo').textContent='🎯 Editar meta';
+  document.getElementById('modal-gasto-fields').style.display='none';
+  document.getElementById('modal-tarjeta-fields').style.display='none';
+  document.getElementById('modal-meta-fields').style.display='block';
+  document.getElementById('modal-m-id').value=m.id;
+  document.getElementById('modal-m-nom').value=m.nom;
+  document.getElementById('modal-m-tot').value=m.tot;
+  document.getElementById('modal-m-act').value=m.act;
+  document.getElementById('modal-m-abonar').value='';
+  document.getElementById('modal-m-retirar').value='';
+  abrirModal();
+}
+
+document.getElementById('modal-m-save').addEventListener('click',async()=>{
+  const id=document.getElementById('modal-m-id').value;
+  const nom=document.getElementById('modal-m-nom').value.trim();
+  const tot=parseFloat(document.getElementById('modal-m-tot').value)||0;
+  let act=parseFloat(document.getElementById('modal-m-act').value)||0;
+  const abonar=parseFloat(document.getElementById('modal-m-abonar').value)||0;
+  const retirar=parseFloat(document.getElementById('modal-m-retirar').value)||0;
+  if(!id||!nom)return;
+  if(abonar>0)act=act+abonar;
+  if(retirar>0)act=Math.max(0,act-retirar);
+  act=Math.min(act,tot);
+  sync('saving');
+  try{
+    await setDoc(doc(db,'metas',id),{nom,tot,act});
+    const idx=metas.findIndex(m=>m.id===id);
+    if(idx>-1)metas[idx]={...metas[idx],nom,tot,act};
+    sync('ok');cerrarModal();renderMetas();renderResumen();
+  }catch(e){sync('error');}
+});
+
 // ========== FIN MODAL ==========
 
 // ========== FONDO EMERGENCIA + EFECTIVO ==========
