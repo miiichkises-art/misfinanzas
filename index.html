@@ -148,7 +148,30 @@
       </div>
       <div class="card">
         <div class="frow"><input type="number" id="g-monto" class="big" placeholder="$0.00" inputmode="decimal"></div>
-        <div class="frow"><select id="g-cat"><option>Comida</option><option>Transporte</option><option>Servicios</option><option>Entretenimiento</option><option>Salud</option><option>Ropa</option><option>Trabajo / Studio</option><option>El Cantinero</option><option>Otro</option></select></div>
+        <div class="frow"><select id="g-cat">
+          <optgroup label="🏠 Hogar">
+            <option>Despensa</option>
+            <option>Comida / Restaurantes</option>
+            <option>Servicios (luz, agua, gas)</option>
+            <option>Hogar / Remodelación</option>
+          </optgroup>
+          <optgroup label="🚌 Personal">
+            <option>Transporte</option>
+            <option>Salud</option>
+            <option>Ropa</option>
+            <option>Gastos hormiga</option>
+          </optgroup>
+          <optgroup label="📋 Trámites y varios">
+            <option>Trámites</option>
+            <option>Entretenimiento</option>
+            <option>Gastos eventuales</option>
+          </optgroup>
+          <optgroup label="💼 Negocio">
+            <option>Trabajo / Studio</option>
+            <option>El Cantinero</option>
+          </optgroup>
+          <option>Otro</option>
+        </select></div>
         <div class="frow"><input type="text" id="g-desc" placeholder="Descripción (opcional)"></div>
         <div class="frow"><input type="date" id="g-fecha"></div>
         <button class="btnp green" id="g-add">Registrar</button>
@@ -227,7 +250,56 @@
       </div>
     </div>
 
-    <div id="sec-ia" class="section" style="padding:0">
+    <div id="sec-hogar" class="section">
+      <div style="height:6px"></div>
+      <div style="display:flex;background:#f0f0f0;border-radius:12px;padding:3px;margin-bottom:14px">
+        <button class="segtab active" data-h="sueldo" style="flex:1;padding:9px;font-size:13px;font-weight:500;text-align:center;border-radius:10px;cursor:pointer;color:#888;border:none;background:transparent">Sueldo</button>
+        <button class="segtab" data-h="servicios" style="flex:1;padding:9px;font-size:13px;font-weight:500;text-align:center;border-radius:10px;cursor:pointer;color:#888;border:none;background:transparent">Servicios</button>
+        <button class="segtab" data-h="ahorros-ext" style="flex:1;padding:9px;font-size:13px;font-weight:500;text-align:center;border-radius:10px;cursor:pointer;color:#888;border:none;background:transparent">Ahorros ext.</button>
+      </div>
+      <div id="h-sueldo">
+        <div class="card"><div class="ctitle">Agregar ingreso fijo</div>
+          <div class="frow"><input type="text" id="su-nombre" placeholder="Fuente (ej. UANL, Studio)"></div>
+          <div class="frow"><input type="number" id="su-monto" placeholder="Monto ($)" inputmode="decimal"></div>
+          <div class="frow"><select id="su-freq"><option value="semanal">Semanal</option><option value="quincenal" selected>Quincenal</option><option value="mensual">Mensual</option></select><input type="date" id="su-fecha"></div>
+          <button class="btnp green" id="su-add">Guardar ingreso fijo</button>
+        </div>
+        <div class="card"><div class="ctitle">Mis ingresos fijos</div><div id="su-list"><p class="empty">Sin ingresos fijos aún.</p></div></div>
+        <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:12px">
+          <div style="background:#f7f7f7;border-radius:14px;padding:14px"><div style="font-size:11px;color:#999;margin-bottom:3px">Al mes (estimado)</div><div style="font-size:20px;font-weight:600;color:#1a1a1a" id="su-mes">$0</div></div>
+          <div style="background:#f7f7f7;border-radius:14px;padding:14px"><div style="font-size:11px;color:#999;margin-bottom:3px">Próximo pago</div><div style="font-size:15px;font-weight:600" id="su-prox">—</div></div>
+        </div>
+      </div>
+      <div id="h-servicios" style="display:none">
+        <div id="h-alertas" style="margin-bottom:8px"></div>
+        <div class="card"><div class="ctitle">Agregar servicio o pago</div>
+          <div class="frow"><input type="text" id="sv-nombre" placeholder="Nombre (ej. CFE, Telmex, Catastro)"></div>
+          <div class="frow"><input type="number" id="sv-monto" placeholder="Monto ($)" inputmode="decimal"><select id="sv-freq"><option value="mensual">Mensual</option><option value="bimestral">Bimestral</option><option value="anual">Anual</option></select></div>
+          <div class="frow"><select id="sv-cat"><option value="💧">💧 Agua</option><option value="⚡">⚡ Luz / CFE</option><option value="🔥">🔥 Gas</option><option value="🌐">🌐 Internet</option><option value="📱">📱 Teléfono</option><option value="🏠">🏠 Catastro / Predial</option><option value="🏦">🏦 Crédito / Renta</option><option value="📦">📦 Suscripción</option><option value="🔧">🔧 Otro</option></select><input type="date" id="sv-vence"></div>
+          <button class="btnp" id="sv-add">Agregar servicio</button>
+        </div>
+        <div class="card"><div class="ctitle">Mis servicios</div><div id="sv-list"><p class="empty">Sin servicios aún.</p></div></div>
+        <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:12px">
+          <div style="background:#f7f7f7;border-radius:14px;padding:14px"><div style="font-size:11px;color:#999;margin-bottom:3px">Gasto fijo / mes</div><div style="font-size:20px;font-weight:600;color:#1a1a1a" id="sv-total">$0</div></div>
+          <div style="background:#f7f7f7;border-radius:14px;padding:14px"><div style="font-size:11px;color:#999;margin-bottom:3px">Vencen esta semana</div><div style="font-size:20px;font-weight:600;color:#854F0B" id="sv-prox-n">0</div></div>
+        </div>
+      </div>
+      <div id="h-ahorros-ext" style="display:none">
+        <div class="card"><div class="ctitle">Agregar ahorro externo</div>
+          <div class="frow"><input type="text" id="ah-nombre" placeholder="Nombre (ej. Stori, Nu cajitas)"></div>
+          <div class="frow"><input type="number" id="ah-saldo" placeholder="Saldo actual ($)" inputmode="decimal"><select id="ah-tipo"><option value="cuenta">Cuenta</option><option value="cajita">Cajita / Bolsillo</option><option value="efectivo">Efectivo</option><option value="inversion">Inversión</option></select></div>
+          <div class="frow"><input type="number" id="ah-rend" placeholder="Rendimiento anual % (opcional)" inputmode="decimal"></div>
+          <button class="btnp green" id="ah-add">Agregar ahorro</button>
+        </div>
+        <div class="card"><div class="ctitle">Mis ahorros externos</div><div id="ah-list"><p class="empty">Sin ahorros registrados.</p></div></div>
+        <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:12px">
+          <div style="background:#f7f7f7;border-radius:14px;padding:14px"><div style="font-size:11px;color:#999;margin-bottom:3px">Total guardado</div><div style="font-size:20px;font-weight:600;color:#1D9E75" id="ah-total">$0</div></div>
+          <div style="background:#f7f7f7;border-radius:14px;padding:14px"><div style="font-size:11px;color:#999;margin-bottom:3px">Rendimiento / mes</div><div style="font-size:20px;font-weight:600;color:#1D9E75" id="ah-rend-mes">$0</div></div>
+        </div>
+      </div>
+    </div>
+
+        <div id="sec-ia" class="section" style="padding:0">
       <div style="padding:16px 16px 8px;border-bottom:0.5px solid #f0f0f0">
         <div style="font-size:17px;font-weight:600;color:#1a1a1a">Asistente financiero</div>
         <div style="font-size:12px;color:#999;margin-top:2px">Analiza tus datos y responde tus dudas</div>
@@ -256,6 +328,7 @@
     <button class="nb" data-s="presupuesto"><svg viewBox="0 0 24 24"><path d="M3 17l4-5 4 3 4-6 4 3"/></svg><span>Presupuesto</span></button>
     <button class="nb" data-s="metas"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg><span>Metas</span></button>
     <button class="nb" data-s="tarjetas"><svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="13" rx="2.5"/><path d="M2 11h20"/></svg><span>Tarjetas</span></button>
+    <button class="nb" data-s="hogar"><svg viewBox="0 0 24 24"><path d="M3 12l9-9 9 9M5 10v9a1 1 0 001 1h4v-5h4v5h4a1 1 0 001-1v-9"/></svg><span>Hogar</span></button>
     <button class="nb" data-s="ia"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l2.5 2.5"/></svg><span>IA</span></button>
   </div>
 
@@ -489,6 +562,145 @@ async function sendIA(msg){
 document.getElementById('ia-btn').addEventListener('click',()=>{const inp=document.getElementById('ia-inp');const msg=inp.value.trim();if(!msg)return;inp.value='';sendIA(msg);});
 document.getElementById('ia-inp').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('ia-btn').click();});
 document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>sendIA(c.dataset.q)));
+
+
+// ========== HOGAR ==========
+let sueldos=[], servicios=[], ahorros_ext=[];
+const now2=new Date();
+
+document.querySelectorAll('[data-h]').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('[data-h]').forEach(x=>{x.style.background='transparent';x.style.color='#888';x.style.border='none';});
+  b.style.background='#fff';b.style.color='#1a1a1a';b.style.border='0.5px solid #ddd';
+  ['h-sueldo','h-servicios','h-ahorros-ext'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display='none';});
+  const target=document.getElementById('h-'+b.dataset.h);
+  if(target)target.style.display='block';
+  if(b.dataset.h==='servicios')renderAlertas();
+}));
+
+function freqAMes2(freq,monto){
+  if(freq==='semanal')return monto*4.33;
+  if(freq==='quincenal')return monto*2;
+  return monto;
+}
+function freqMensual2(freq,monto){
+  if(freq==='bimestral')return monto/2;
+  if(freq==='anual')return monto/12;
+  return monto;
+}
+function diasPara(fechaStr){
+  if(!fechaStr)return null;
+  const f=new Date(fechaStr+'T00:00:00');
+  const hoy=new Date(now2.getFullYear(),now2.getMonth(),now2.getDate());
+  return Math.round((f-hoy)/(1000*60*60*24));
+}
+
+document.getElementById('su-add').addEventListener('click',()=>{
+  const nombre=document.getElementById('su-nombre').value.trim();
+  const monto=parseFloat(document.getElementById('su-monto').value)||0;
+  const freq=document.getElementById('su-freq').value;
+  const fecha=document.getElementById('su-fecha').value;
+  if(!nombre||!monto)return;
+  sueldos.push({id:Date.now(),nombre,monto,freq,fecha});
+  document.getElementById('su-nombre').value='';
+  document.getElementById('su-monto').value='';
+  document.getElementById('su-fecha').value='';
+  renderSueldos();
+});
+
+function renderSueldos(){
+  const list=document.getElementById('su-list');
+  const freqLabel={semanal:'Semanal',quincenal:'Quincenal',mensual:'Mensual'};
+  list.innerHTML=sueldos.length?sueldos.map(s=>{
+    const dias=diasPara(s.fecha);
+    const dtxt=dias===null?'':dias===0?' · <span style="color:#1D9E75;font-weight:600">Hoy</span>':dias>0?` · En ${dias} días`:' · Vencido';
+    return`<div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:0.5px solid #f2f2f2">
+      <div style="font-size:22px">💰</div>
+      <div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:500;color:#1a1a1a">${s.nombre}</div><div style="font-size:11px;color:#999">${freqLabel[s.freq]}${dtxt}</div></div>
+      <div style="font-size:14px;font-weight:600;color:#1D9E75">${fmt(s.monto)}</div>
+      <button style="background:none;border:none;cursor:pointer;color:#ccc;font-size:18px;padding:0 3px" data-sid="${s.id}">×</button>
+    </div>`;}).join(''):'<p class="empty">Sin ingresos fijos aún.</p>';
+  list.querySelectorAll('[data-sid]').forEach(b=>b.addEventListener('click',()=>{sueldos=sueldos.filter(s=>s.id!=b.dataset.sid);renderSueldos();}));
+  const totalMes=sueldos.reduce((t,s)=>t+freqAMes2(s.freq,s.monto),0);
+  document.getElementById('su-mes').textContent=fmt(totalMes);
+  const prox=sueldos.filter(s=>s.fecha).sort((a,b)=>new Date(a.fecha)-new Date(b.fecha))[0];
+  if(prox){const d=diasPara(prox.fecha);const el=document.getElementById('su-prox');el.textContent=d===0?'Hoy':d===1?'Mañana':`En ${d} días`;el.style.color=d<=3?'#854F0B':'#1D9E75';}
+}
+
+document.getElementById('sv-add').addEventListener('click',()=>{
+  const nombre=document.getElementById('sv-nombre').value.trim();
+  const monto=parseFloat(document.getElementById('sv-monto').value)||0;
+  const freq=document.getElementById('sv-freq').value;
+  const cat=document.getElementById('sv-cat').value;
+  const vence=document.getElementById('sv-vence').value;
+  if(!nombre||!monto)return;
+  servicios.push({id:Date.now(),nombre,monto,freq,cat,vence});
+  document.getElementById('sv-nombre').value='';
+  document.getElementById('sv-monto').value='';
+  document.getElementById('sv-vence').value='';
+  renderServicios();renderAlertas();
+});
+
+function renderServicios(){
+  const list=document.getElementById('sv-list');
+  list.innerHTML=servicios.length?servicios.map(s=>{
+    const dias=diasPara(s.vence);
+    let badge='';
+    if(dias!==null){if(dias<0)badge='<span style="font-size:10px;padding:2px 7px;border-radius:20px;font-weight:600;background:#FCEBEB;color:#791F1F">Vencido</span>';else if(dias<=3)badge='<span style="font-size:10px;padding:2px 7px;border-radius:20px;font-weight:600;background:#FCEBEB;color:#791F1F">¡Urgente!</span>';else if(dias<=7)badge='<span style="font-size:10px;padding:2px 7px;border-radius:20px;font-weight:600;background:#FAEEDA;color:#633806">Esta semana</span>';else badge='<span style="font-size:10px;padding:2px 7px;border-radius:20px;font-weight:600;background:#EAF3DE;color:#27500A">Al corriente</span>';}
+    const fechaTxt=s.vence?new Date(s.vence+'T00:00:00').toLocaleDateString('es-MX',{day:'numeric',month:'short'}):'';
+    return`<div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:0.5px solid #f2f2f2">
+      <div style="font-size:22px">${s.cat}</div>
+      <div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:500;color:#1a1a1a">${s.nombre} ${badge}</div><div style="font-size:11px;color:#999">${s.freq}${fechaTxt?' · Vence '+fechaTxt:''}</div></div>
+      <div style="font-size:13px;font-weight:600;color:#1a1a1a">${fmt(s.monto)}</div>
+      <button style="background:none;border:none;cursor:pointer;color:#ccc;font-size:18px;padding:0 3px" data-svid="${s.id}">×</button>
+    </div>`;}).join(''):'<p class="empty">Sin servicios aún.</p>';
+  list.querySelectorAll('[data-svid]').forEach(b=>b.addEventListener('click',()=>{servicios=servicios.filter(s=>s.id!=b.dataset.svid);renderServicios();renderAlertas();}));
+  const totalMes=servicios.reduce((t,s)=>t+freqMensual2(s.freq,s.monto),0);
+  document.getElementById('sv-total').textContent=fmt(totalMes);
+  const proxSem=servicios.filter(s=>{const d=diasPara(s.vence);return d!==null&&d>=0&&d<=7;}).length;
+  document.getElementById('sv-prox-n').textContent=proxSem;
+}
+
+function renderAlertas(){
+  const wrap=document.getElementById('h-alertas');if(!wrap)return;
+  const vencidos=servicios.filter(s=>{const d=diasPara(s.vence);return d!==null&&d<0;});
+  const urgentes=servicios.filter(s=>{const d=diasPara(s.vence);return d!==null&&d>=0&&d<=7;});
+  let html='';
+  if(vencidos.length)html+=`<div style="display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:12px;margin-bottom:6px;font-size:12px;background:#FCEBEB;color:#791F1F">⚠️ <span>${vencidos.length} servicio${vencidos.length>1?'s':''} vencido${vencidos.length>1?'s':''}: ${vencidos.map(s=>s.nombre).join(', ')}</span></div>`;
+  if(urgentes.length)html+=`<div style="display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:12px;margin-bottom:6px;font-size:12px;background:#FAEEDA;color:#633806">🔔 <span>${urgentes.length} servicio${urgentes.length>1?'s':''} vence esta semana: ${urgentes.map(s=>s.nombre).join(', ')}</span></div>`;
+  wrap.innerHTML=html;
+}
+
+document.getElementById('ah-add').addEventListener('click',()=>{
+  const nombre=document.getElementById('ah-nombre').value.trim();
+  const saldo=parseFloat(document.getElementById('ah-saldo').value)||0;
+  const tipo=document.getElementById('ah-tipo').value;
+  const rend=parseFloat(document.getElementById('ah-rend').value)||0;
+  if(!nombre||!saldo)return;
+  ahorros_ext.push({id:Date.now(),nombre,saldo,tipo,rend});
+  document.getElementById('ah-nombre').value='';
+  document.getElementById('ah-saldo').value='';
+  document.getElementById('ah-rend').value='';
+  renderAhorrosExt();
+});
+
+const tipoIcon2={cuenta:'🏦',cajita:'🏺',efectivo:'💵',inversion:'📈'};
+const tipoLabel2={cuenta:'Cuenta',cajita:'Cajita / Bolsillo',efectivo:'Efectivo',inversion:'Inversión'};
+
+function renderAhorrosExt(){
+  const list=document.getElementById('ah-list');
+  list.innerHTML=ahorros_ext.length?ahorros_ext.map(a=>`<div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:0.5px solid #f2f2f2">
+    <div style="font-size:22px">${tipoIcon2[a.tipo]||'💰'}</div>
+    <div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:500;color:#1a1a1a">${a.nombre}</div><div style="font-size:11px;color:#999">${tipoLabel2[a.tipo]}${a.rend?' · '+a.rend+'% anual':''}</div></div>
+    <div style="font-size:14px;font-weight:600;color:#1D9E75">${fmt(a.saldo)}</div>
+    <button style="background:none;border:none;cursor:pointer;color:#ccc;font-size:18px;padding:0 3px" data-ahid="${a.id}">×</button>
+  </div>`).join(''):'<p class="empty">Sin ahorros registrados.</p>';
+  list.querySelectorAll('[data-ahid]').forEach(b=>b.addEventListener('click',()=>{ahorros_ext=ahorros_ext.filter(a=>a.id!=b.dataset.ahid);renderAhorrosExt();}));
+  const total=ahorros_ext.reduce((t,a)=>t+a.saldo,0);
+  const rendMes=ahorros_ext.reduce((t,a)=>t+(a.saldo*a.rend/100/12),0);
+  document.getElementById('ah-total').textContent=fmt(total);
+  document.getElementById('ah-rend-mes').textContent=fmt(rendMes);
+}
+// ========== FIN HOGAR ==========
 
 loadAll();
 </script>
