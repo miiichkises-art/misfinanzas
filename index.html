@@ -486,7 +486,7 @@ async function loadAll(){
   }catch(e){document.getElementById('loading').style.display='none';sync('error');console.error(e);}
 }
 
-function renderAll(){updateTopbar();renderResumen();renderGList();renderBudget();renderMetas();renderTarjetas();renderAbonosList();}
+function renderAll(){updateTopbar();renderResumen();renderGList();renderBudget();renderMetas();renderTarjetas();renderAbonosList();renderSueldos();renderServicios();renderAhorrosExt();}
 
 function txIcon(cat,tipo){const c=tipo==='ingreso'?catC.ingreso:(catC[cat]||'#888');return`<div class="txicon" style="background:${c}20"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="${c}" stroke-width="1.5"><circle cx="10" cy="10" r="7"/></svg></div>`;}
 
