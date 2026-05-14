@@ -1376,40 +1376,6 @@ document.getElementById('modal-m-save').addEventListener('click',async()=>{
 });
 
 
-function abrirEditMeta(m){
-  document.getElementById('modal-titulo').textContent='🎯 Editar meta';
-  document.getElementById('modal-gasto-fields').style.display='none';
-  document.getElementById('modal-tarjeta-fields').style.display='none';
-  document.getElementById('modal-meta-fields').style.display='block';
-  document.getElementById('modal-m-id').value=m.id;
-  document.getElementById('modal-m-nom').value=m.nom;
-  document.getElementById('modal-m-tot').value=m.tot;
-  document.getElementById('modal-m-act').value=m.act;
-  document.getElementById('modal-m-abonar').value='';
-  document.getElementById('modal-m-retirar').value='';
-  abrirModal();
-}
-
-document.getElementById('modal-m-save').addEventListener('click',async()=>{
-  const id=document.getElementById('modal-m-id').value;
-  const nom=document.getElementById('modal-m-nom').value.trim();
-  const tot=parseFloat(document.getElementById('modal-m-tot').value)||0;
-  let act=parseFloat(document.getElementById('modal-m-act').value)||0;
-  const abonar=parseFloat(document.getElementById('modal-m-abonar').value)||0;
-  const retirar=parseFloat(document.getElementById('modal-m-retirar').value)||0;
-  if(!id||!nom)return;
-  if(abonar>0)act=act+abonar;
-  if(retirar>0)act=Math.max(0,act-retirar);
-  act=Math.min(act,tot);
-  sync('saving');
-  try{
-    await setDoc(doc(db,'metas',id),{nom,tot,act});
-    const idx=metas.findIndex(m=>m.id===id);
-    if(idx>-1)metas[idx]={...metas[idx],nom,tot,act};
-    sync('ok');cerrarModal();renderMetas();renderResumen();
-  }catch(e){sync('error');}
-});
-
 // ========== FIN MODAL ==========
 
 // ========== FONDO EMERGENCIA + EFECTIVO ==========
