@@ -852,7 +852,7 @@ function renderBudget(){
     const l=budgets[c],p=Math.min(100,Math.round(g/l*100));
     const col=p>90?'#E24B4A':p>70?'#EF9F27':'#0D5C4A';
     const badge=p>90?'<span class="badge bdanger">Excedido</span>':p>70?'<span class="badge bwarn">Cuidado</span>':'<span class="badge bok">Bien</span>';
-    return`<div style="margin-bottom:16px;cursor:pointer" onclick="abrirEditPresupuesto('${c}',${l})">
+    return`<div style="margin-bottom:16px;cursor:pointer" data-budcat="${c}" data-budlim="${l}">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
         <span style="font-size:15px;font-weight:500;color:#0D1F1A">${c}</span>
         <div style="display:flex;align-items:center;gap:6px">${badge}<span style="font-size:11px;color:#0D5C4A;padding:2px 7px;background:#E8F4EF;border-radius:8px">✏️</span></div>
@@ -863,6 +863,11 @@ function renderBudget(){
       </div>
     </div>`;
   }).join('');
+  el.querySelectorAll('[data-budcat]').forEach(row=>{
+    row.addEventListener('click',()=>{
+      abrirEditPresupuesto(row.dataset.budcat, parseFloat(row.dataset.budlim));
+    });
+  });
 }
 
 document.getElementById('m-add').addEventListener('click',async()=>{
@@ -1295,14 +1300,14 @@ function renderDeducibles(){
 
 
 // ========== MODAL EDICIÓN ==========
-function abrirModal(){
+window.abrirModal = function abrirModal(){
   const overlay=document.getElementById('modal-overlay');
   const sheet=document.getElementById('modal-sheet');
   overlay.style.display='flex';
   requestAnimationFrame(()=>{sheet.style.transform='translateY(0)';});
 }
 
-function cerrarModal(e){
+window.cerrarModal = function cerrarModal(e){
   if(e&&e.target!==document.getElementById('modal-overlay'))return;
   const sheet=document.getElementById('modal-sheet');
   sheet.style.transform='translateY(100%)';
