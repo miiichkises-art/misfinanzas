@@ -153,9 +153,9 @@
         <div class="frow"><select id="g-cat">
           <optgroup label="🏠 Hogar">
             <option value="Despensa">🛒 Despensa</option>
-            <option value="Comida / Restaurantes">🍽️ Comida / Restaurantes</option>
-            <option value="Servicios (luz, agua, gas)">⚡ Servicios (luz, agua, gas)</option>
-            <option value="Hogar / Remodelación">🔨 Hogar / Remodelación</option>
+            <option value="Comida">🍽️ Comida</option>
+            <option value="Servicios">⚡ Servicios</option>
+            <option value="Remodelación">🔨 Remodelación</option>
           </optgroup>
           <optgroup label="🚌 Personal">
             <option value="Transporte">🚌 Transporte</option>
@@ -169,7 +169,7 @@
             <option value="Gastos eventuales">🎲 Gastos eventuales</option>
           </optgroup>
           <optgroup label="💼 Negocio">
-            <option value="Trabajo / Studio">🎬 Trabajo / Studio</option>
+            <option value="Studio">🎬 Studio</option>
             <option value="El Cantinero">🍺 El Cantinero</option>
           </optgroup>
           <option value="Otro">🔧 Otro</option>
@@ -198,9 +198,9 @@
         <div class="frow"><select id="b-cat">
           <optgroup label="🏠 Hogar">
             <option value="Despensa">🛒 Despensa</option>
-            <option value="Comida">🍽️ Comida / Restaurantes</option>
-            <option value="Servicios">⚡ Servicios (luz, agua, gas)</option>
-            <option value="Hogar / Remodelación">🔨 Hogar / Remodelación</option>
+            <option value="Comida">🍽️ Comida</option>
+            <option value="Servicios">⚡ Servicios</option>
+            <option value="Remodelación">🔨 Remodelación</option>
           </optgroup>
           <optgroup label="🚌 Personal">
             <option value="Transporte">🚌 Transporte</option>
@@ -214,7 +214,7 @@
             <option value="Gastos eventuales">🎲 Gastos eventuales</option>
           </optgroup>
           <optgroup label="💼 Negocio">
-            <option value="Trabajo / Studio">🎬 Trabajo / Studio</option>
+            <option value="Studio">🎬 Studio</option>
             <option value="El Cantinero">🍺 El Cantinero</option>
           </optgroup>
           <option value="Otro">🔧 Otro</option>
@@ -592,9 +592,9 @@
         <div style="margin-bottom:10px"><input type="number" id="modal-g-monto" placeholder="Monto ($)" inputmode="decimal" style="width:100%;padding:12px;font-size:15px;border:0.5px solid #C8E0D8;border-radius:12px;background:#F0F8F4;color:#0D1F1A;outline:none"></div>
         <div style="margin-bottom:10px"><select id="modal-g-cat" style="width:100%;padding:12px;font-size:15px;border:0.5px solid #C8E0D8;border-radius:12px;background:#F0F8F4;color:#0D1F1A;outline:none;-webkit-appearance:none">
           <option value="Despensa">🛒 Despensa</option>
-          <option value="Comida / Restaurantes">🍽️ Comida / Restaurantes</option>
-          <option value="Servicios (luz, agua, gas)">⚡ Servicios</option>
-          <option value="Hogar / Remodelación">🔨 Hogar / Remodelación</option>
+          <option value="Comida">🍽️ Comida</option>
+          <option value="Servicios">⚡ Servicios</option>
+          <option value="Remodelación">🔨 Remodelación</option>
           <option value="Transporte">🚌 Transporte</option>
           <option value="Salud">💊 Salud</option>
           <option value="Ropa">👗 Ropa</option>
@@ -602,7 +602,7 @@
           <option value="Trámites">📄 Trámites</option>
           <option value="Entretenimiento">🎉 Entretenimiento</option>
           <option value="Gastos eventuales">🎲 Gastos eventuales</option>
-          <option value="Trabajo / Studio">🎬 Trabajo / Studio</option>
+          <option value="Studio">🎬 Studio</option>
           <option value="El Cantinero">🍺 El Cantinero</option>
           <option value="Otro">🔧 Otro</option>
         </select></div>
@@ -773,11 +773,12 @@ async function loadAll(){
 function renderAll(){updateTopbar();renderResumen();renderGList();renderBudget();renderMetas();renderTarjetas();renderAbonosList();renderSueldos();renderServicios();renderAhorrosExt();}
 
 const catEmoji={
-  'Despensa':'🛒','Comida / Restaurantes':'🍽️','Servicios (luz, agua, gas)':'⚡',
-  'Hogar / Remodelación':'🔨','Transporte':'🚌','Salud':'💊','Ropa':'👗',
-  'Gastos hormiga':'🐜','Trámites':'📄','Entretenimiento':'🎉',
-  'Gastos eventuales':'🎲','Trabajo / Studio':'🎬','El Cantinero':'🍺',
-  'Comida':'🍽️','Servicios':'⚡','Otro':'🔧','ingreso':'💰'
+  'Despensa':'🛒','Comida':'🍽️','Servicios':'⚡','Remodelación':'🔨',
+  'Transporte':'🚌','Salud':'💊','Ropa':'👗','Gastos hormiga':'🐜',
+  'Trámites':'📄','Entretenimiento':'🎉','Gastos eventuales':'🎲',
+  'Studio':'🎬','El Cantinero':'🍺','Otro':'🔧','ingreso':'💰',
+  'Comida / Restaurantes':'🍽️','Servicios (luz, agua, gas)':'⚡',
+  'Hogar / Remodelación':'🔨','Trabajo / Studio':'🎬'
 };
 function txIcon(cat,tipo){
   const emoji=tipo==='ingreso'?'💰':(catEmoji[cat]||'💸');
