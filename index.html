@@ -622,16 +622,31 @@
       <!-- CAMPOS TARJETA -->
       <div id="modal-tarjeta-fields" style="display:none">
         <input type="hidden" id="modal-t-id">
-        <div style="margin-bottom:10px"><input type="text" id="modal-t-nom" placeholder="Nombre de la tarjeta" style="width:100%;padding:12px;font-size:15px;border:0.5px solid #C8E0D8;border-radius:12px;background:#F0F8F4;color:#0D1F1A;outline:none"></div>
+        <div style="margin-bottom:10px">
+          <input type="text" id="modal-t-nom" placeholder="Nombre de la tarjeta" style="width:100%;padding:12px;font-size:15px;border:0.5px solid #C8E0D8;border-radius:12px;background:#F0F8F4;color:#0D1F1A;outline:none">
+        </div>
+        <div style="font-size:11px;color:#6B9E8A;margin-bottom:6px">💡 Actualiza el saldo si subió por intereses o después de un pago</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
-          <input type="number" id="modal-t-sal" placeholder="Saldo ($)" inputmode="decimal" style="padding:12px;font-size:15px;border:0.5px solid #C8E0D8;border-radius:12px;background:#F0F8F4;color:#0D1F1A;outline:none">
-          <input type="number" id="modal-t-tasa" placeholder="Tasa anual %" inputmode="decimal" style="padding:12px;font-size:15px;border:0.5px solid #C8E0D8;border-radius:12px;background:#F0F8F4;color:#0D1F1A;outline:none">
+          <div>
+            <div style="font-size:11px;color:#A32D2D;font-weight:500;margin-bottom:4px">Saldo actual ($)</div>
+            <input type="number" id="modal-t-sal" placeholder="Saldo deudor" inputmode="decimal" style="width:100%;padding:12px;font-size:15px;border:0.5px solid #F5C4C4;border-radius:12px;background:#FEF0F0;color:#0D1F1A;outline:none">
+          </div>
+          <div>
+            <div style="font-size:11px;color:#854F0B;font-weight:500;margin-bottom:4px">Tasa anual (%)</div>
+            <input type="number" id="modal-t-tasa" placeholder="Ej. 60" inputmode="decimal" style="width:100%;padding:12px;font-size:15px;border:0.5px solid #C8E0D8;border-radius:12px;background:#F0F8F4;color:#0D1F1A;outline:none">
+          </div>
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px">
-          <input type="number" id="modal-t-min" placeholder="Mínimo ($)" inputmode="decimal" style="padding:12px;font-size:15px;border:0.5px solid #C8E0D8;border-radius:12px;background:#F0F8F4;color:#0D1F1A;outline:none">
-          <input type="number" id="modal-t-lim" placeholder="Límite ($)" inputmode="decimal" style="padding:12px;font-size:15px;border:0.5px solid #C8E0D8;border-radius:12px;background:#F0F8F4;color:#0D1F1A;outline:none">
+          <div>
+            <div style="font-size:11px;color:#6B9E8A;font-weight:500;margin-bottom:4px">Pago mínimo ($)</div>
+            <input type="number" id="modal-t-min" placeholder="Mínimo" inputmode="decimal" style="width:100%;padding:12px;font-size:15px;border:0.5px solid #C8E0D8;border-radius:12px;background:#F0F8F4;color:#0D1F1A;outline:none">
+          </div>
+          <div>
+            <div style="font-size:11px;color:#6B9E8A;font-weight:500;margin-bottom:4px">Límite de crédito ($)</div>
+            <input type="number" id="modal-t-lim" placeholder="Límite" inputmode="decimal" style="width:100%;padding:12px;font-size:15px;border:0.5px solid #C8E0D8;border-radius:12px;background:#F0F8F4;color:#0D1F1A;outline:none">
+          </div>
         </div>
-        <button id="modal-t-save" style="width:100%;padding:14px;font-size:15px;font-weight:500;background:#0D5C4A;color:#fff;border:none;border-radius:14px;cursor:pointer;margin-bottom:8px">Guardar cambios</button>
+        <button id="modal-t-save" style="width:100%;padding:14px;font-size:15px;font-weight:500;background:#0D5C4A;color:#fff;border:none;border-radius:14px;cursor:pointer;margin-bottom:8px">💾 Guardar cambios</button>
         <button onclick="cerrarModal()" style="width:100%;padding:13px;font-size:14px;font-weight:500;background:transparent;color:#6B9E8A;border:0.5px solid #C8E0D8;border-radius:14px;cursor:pointer">Cancelar</button>
       </div>
 
@@ -1314,7 +1329,7 @@ window.cerrarModal = function cerrarModal(e){
   setTimeout(()=>{document.getElementById('modal-overlay').style.display='none';},300);
 }
 
-function abrirEditGasto(tx){
+window.abrirEditGasto = function(tx){
   document.getElementById('modal-titulo').textContent='✏️ Editar gasto';
   document.getElementById('modal-gasto-fields').style.display='block';
   document.getElementById('modal-tarjeta-fields').style.display='none';
@@ -1326,7 +1341,7 @@ function abrirEditGasto(tx){
   abrirModal();
 }
 
-function abrirEditTarjeta(t){
+window.abrirEditTarjeta = function(t){
   document.getElementById('modal-titulo').textContent='✏️ Editar tarjeta';
   document.getElementById('modal-gasto-fields').style.display='none';
   document.getElementById('modal-tarjeta-fields').style.display='block';
@@ -1373,7 +1388,7 @@ document.getElementById('modal-t-save').addEventListener('click',async()=>{
   }catch(e){sync('error');}
 });
 
-function abrirEditMeta(m){
+window.abrirEditMeta = function(m){
   document.getElementById('modal-titulo').textContent='🎯 Editar meta';
   document.getElementById('modal-gasto-fields').style.display='none';
   document.getElementById('modal-tarjeta-fields').style.display='none';
@@ -1409,7 +1424,7 @@ document.getElementById('modal-m-save').addEventListener('click',async()=>{
 
 
 
-function abrirEditPresupuesto(cat, limite){
+window.abrirEditPresupuesto = function(cat, limite){
   document.getElementById('modal-titulo').textContent='📊 Editar presupuesto';
   document.getElementById('modal-gasto-fields').style.display='none';
   document.getElementById('modal-tarjeta-fields').style.display='none';
