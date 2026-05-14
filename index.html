@@ -1645,15 +1645,15 @@ function renderDona(){
 }
 
 function renderMetodoPago(){
-  const metodos={efectivo:0,debito:0,transferencia:0,credito:0};
+  const metodos={efectivo:0,debito:0,transferencia:0,credito:0,urbani:0,app:0};
   txs.filter(t=>t.tipo==='gasto').forEach(t=>{
     const m=t.metodo||'efectivo';
     if(metodos.hasOwnProperty(m))metodos[m]+=t.monto;
     else metodos.efectivo+=t.monto;
   });
-  const labels=['💵 Efectivo','💳 Débito','🏦 Transferencia','💰 Crédito'];
-  const vals=[Math.round(metodos.efectivo),Math.round(metodos.debito),Math.round(metodos.transferencia),Math.round(metodos.credito)];
-  const colores=['#0D5C4A','#1D9E75','#BA7517','#378ADD'];
+  const labels=['💵 Efectivo','💳 Débito','🏦 Transferencia','💰 Crédito','🚌 Urbani','📱 App'];
+  const vals=[Math.round(metodos.efectivo),Math.round(metodos.debito),Math.round(metodos.transferencia),Math.round(metodos.credito),Math.round(metodos.urbani),Math.round(metodos.app)];
+  const colores=['#0D5C4A','#1D9E75','#BA7517','#378ADD','#D85A30','#7F77DD'];
 
   const ctx=document.getElementById('chart-metodo');
   if(!ctx)return;
