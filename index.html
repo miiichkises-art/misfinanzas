@@ -186,6 +186,17 @@
           </select>
           <input type="date" id="g-fecha">
         </div>
+        <div class="frow">
+          <select id="g-cuenta" style="flex:1">
+            <option value="">🏦 ¿De qué cuenta?</option>
+            <option value="Banorte">🏦 Banorte</option>
+            <option value="BBVA">🏦 BBVA</option>
+            <option value="Spin OXXO">💳 Spin OXXO</option>
+            <option value="Banamex">🏦 Banamex</option>
+            <option value="Nu">💚 Nu</option>
+            <option value="Efectivo">💵 Efectivo en cartera</option>
+          </select>
+        </div>
         <button class="btnp green" id="g-add">Registrar</button>
       </div>
       <div class="card"><div class="ctitle">📋 Historial</div><div id="g-list"><p class="empty">Sin movimientos aún.</p></div></div>
@@ -285,7 +296,76 @@
       </div>
     </div>
 
-    <div id="sec-hogar" class="section">
+    <!-- MIS CUENTAS -->
+    <div id="sec-cuentas" class="section">
+      <div style="height:6px"></div>
+
+      <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:14px">
+        <div style="background:#E8F4EF;border-radius:14px;padding:14px"><div style="font-size:11px;color:#0D5C4A;margin-bottom:3px">💰 Total en cuentas</div><div style="font-size:20px;font-weight:600;color:#0D5C4A" id="ct-total">$0</div></div>
+        <div style="background:#FAEEDA;border-radius:14px;padding:14px"><div style="font-size:11px;color:#854F0B;margin-bottom:3px">📤 Traspasos del mes</div><div style="font-size:20px;font-weight:600;color:#854F0B" id="ct-traspasos">$0</div></div>
+      </div>
+
+      <!-- LISTA DE CUENTAS -->
+      <div class="card">
+        <div class="ctitle">🏦 Mis cuentas</div>
+        <div id="ct-list"><p class="empty">Agrega tus cuentas abajo.</p></div>
+      </div>
+
+      <!-- AGREGAR CUENTA -->
+      <div class="card">
+        <div class="ctitle">➕ Agregar cuenta</div>
+        <div class="frow">
+          <select id="ct-banco" style="flex:2">
+            <option value="Banorte">🏦 Banorte Débito</option>
+            <option value="BBVA">🏦 BBVA</option>
+            <option value="Spin OXXO">💳 Spin OXXO</option>
+            <option value="Banamex">🏦 Banamex</option>
+            <option value="Nu">💚 Nu Débito</option>
+            <option value="Otra">🏦 Otra</option>
+          </select>
+        </div>
+        <div class="frow">
+          <input type="text" id="ct-alias" placeholder="Alias (ej. Banorte Nómina)" style="flex:1">
+        </div>
+        <div class="frow">
+          <input type="number" id="ct-saldo" placeholder="Saldo actual ($)" inputmode="decimal" style="flex:1">
+        </div>
+        <button class="btnp green" id="ct-add">Agregar cuenta</button>
+      </div>
+
+      <!-- REGISTRAR TRASPASO -->
+      <div class="card" id="ct-traspaso-wrap" style="display:none">
+        <div class="ctitle">🔄 Registrar traspaso entre cuentas</div>
+        <div style="font-size:12px;color:#6B9E8A;margin-bottom:10px">Cuando mandas dinero de una cuenta a otra — por ejemplo para pagar una tarjeta domiciliada.</div>
+        <div class="frow">
+          <select id="ct-de" style="flex:1"></select>
+        </div>
+        <div style="text-align:center;font-size:18px;margin-bottom:8px">↓</div>
+        <div class="frow">
+          <select id="ct-a" style="flex:1"></select>
+        </div>
+        <div class="frow">
+          <input type="number" id="ct-monto-t" placeholder="Monto a traspasar ($)" inputmode="decimal" style="flex:1">
+          <input type="date" id="ct-fecha-t" style="flex:1">
+        </div>
+        <div class="frow">
+          <input type="text" id="ct-nota-t" placeholder="Nota (ej. pago BBVA domiciliado)" style="flex:1">
+        </div>
+        <button class="btnp" id="ct-traspaso-add">Registrar traspaso</button>
+      </div>
+
+      <!-- HISTORIAL DE MOVIMIENTOS POR CUENTA -->
+      <div class="card" id="ct-hist-wrap" style="display:none">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+          <div class="ctitle" style="margin:0" id="ct-hist-titulo">📋 Movimientos</div>
+          <select id="ct-filtro" style="padding:6px 10px;font-size:12px;border:0.5px solid #C8E0D8;border-radius:8px;background:#F0F8F4;color:#0D1F1A;outline:none"></select>
+        </div>
+        <div id="ct-hist-list"><p class="empty">Sin movimientos.</p></div>
+      </div>
+
+    </div>
+
+        <div id="sec-hogar" class="section">
       <div style="height:6px"></div>
       <div style="display:flex;background:#DFF0E8;border-radius:12px;padding:3px;margin-bottom:14px">
         <button class="segtab active" data-h="sueldo" style="flex:1;padding:9px;font-size:12px;font-weight:500;text-align:center;border-radius:10px;cursor:pointer;color:#888;border:none;background:transparent">💰 Sueldo</button>
@@ -572,6 +652,7 @@
     <button class="nb" data-s="presupuesto"><span style="font-size:20px;line-height:1">📊</span><span>Presupuesto</span></button>
     <button class="nb" data-s="metas"><span style="font-size:20px;line-height:1">🎯</span><span>Metas</span></button>
     <button class="nb" data-s="tarjetas"><span style="font-size:20px;line-height:1">💳</span><span>Tarjetas</span></button>
+    <button class="nb" data-s="cuentas"><span style="font-size:20px;line-height:1">🏦</span><span>Cuentas</span></button>
     <button class="nb" data-s="hogar"><span style="font-size:20px;line-height:1">🏡</span><span>Hogar</span></button>
     <button class="nb" data-s="negocios"><span style="font-size:20px;line-height:1">🎬</span><span>Negocio</span></button>
     <button class="nb" data-s="fondo"><span style="font-size:20px;line-height:1">🆘</span><span>Fondo</span></button>
@@ -754,6 +835,17 @@
         <button onclick="cerrarModal()" style="width:100%;padding:13px;font-size:14px;font-weight:500;background:transparent;color:#6B9E8A;border:0.5px solid #C8E0D8;border-radius:14px;cursor:pointer">Cancelar</button>
       </div>
 
+      <!-- CAMPOS CUENTA -->
+      <div id="modal-ct-fields" style="display:none">
+        <input type="hidden" id="modal-ct-id">
+        <div style="margin-bottom:10px"><input type="text" id="modal-ct-alias" placeholder="Nombre / alias de la cuenta" style="width:100%;padding:12px;font-size:15px;border:0.5px solid #C8E0D8;border-radius:12px;background:#F0F8F4;color:#0D1F1A;outline:none"></div>
+        <div style="font-size:12px;color:#6B9E8A;margin-bottom:6px">💡 Actualiza el saldo según tu estado de cuenta real</div>
+        <div style="margin-bottom:16px"><input type="number" id="modal-ct-saldo" placeholder="Saldo actual ($)" inputmode="decimal" style="width:100%;padding:12px;font-size:15px;border:0.5px solid #C8E0D8;border-radius:12px;background:#E8F4EF;color:#0D1F1A;outline:none"></div>
+        <button id="modal-ct-save" style="width:100%;padding:14px;font-size:15px;font-weight:500;background:#0D5C4A;color:#fff;border:none;border-radius:14px;cursor:pointer;margin-bottom:8px">💾 Guardar cambios</button>
+        <button id="modal-ct-del" style="width:100%;padding:13px;font-size:14px;font-weight:500;background:transparent;color:#A32D2D;border:0.5px solid #F5C4C4;border-radius:14px;cursor:pointer;margin-bottom:8px">🗑️ Eliminar cuenta</button>
+        <button onclick="cerrarModal()" style="width:100%;padding:13px;font-size:14px;font-weight:500;background:transparent;color:#6B9E8A;border:0.5px solid #C8E0D8;border-radius:14px;cursor:pointer">Cancelar</button>
+      </div>
+
     </div>
   </div>
 </div>
@@ -854,13 +946,19 @@ document.getElementById('g-add').addEventListener('click',async()=>{
   const desc=document.getElementById('g-desc').value.trim()||cat;
   const fecha=document.getElementById('g-fecha').value;
   const metodo=document.getElementById('g-metodo').value;
+  const cuenta=document.getElementById('g-cuenta').value;
   const btn=document.getElementById('g-add');btn.disabled=true;sync('saving');
   try{
     const ts=Date.now();
-    const ref=await addDoc(collection(db,'transacciones'),{tipo:tipoGasto,monto,cat,desc,fecha,metodo,ts});
-    txs.unshift({id:ref.id,tipo:tipoGasto,monto,cat,desc,fecha,metodo,ts});
+    const ref=await addDoc(collection(db,'transacciones'),{tipo:tipoGasto,monto,cat,desc,fecha,metodo,cuenta,ts});
+    txs.unshift({id:ref.id,tipo:tipoGasto,monto,cat,desc,fecha,metodo,cuenta,ts});
     document.getElementById('g-monto').value='';document.getElementById('g-desc').value='';
-    sync('ok');renderGList();renderResumen();updateTopbar();
+    // Actualizar saldo de cuenta si está seleccionada
+    if(cuenta&&tipoGasto==='gasto'){
+      const ct=cuentas.find(c=>c.banco===cuenta||c.alias===cuenta);
+      if(ct){ct.saldo=Math.max(0,ct.saldo-monto);await setDoc(doc(db,'cuentas',ct.id),ct);}
+    }
+    sync('ok');renderGList();renderResumen();updateTopbar();renderCuentas();
   }catch(e){sync('error');}
   btn.disabled=false;
 });
@@ -1743,7 +1841,192 @@ function renderEfectivo(){
 }
 // ========== FIN FONDO ==========
 
+
+// ========== MIS CUENTAS ==========
+let cuentas=[], traspasos=[];
+
+const bancoIcon={
+  'Banorte':'🏦','BBVA':'🏦','Spin OXXO':'💳','Banamex':'🏦','Nu':'💚','Otra':'🏦','Efectivo':'💵'
+};
+
+async function loadCuentas(){
+  try{
+    const[ctSnap,trSnap]=await Promise.all([
+      getDocs(collection(db,'cuentas')),
+      getDocs(query(collection(db,'traspasos'),orderBy('ts','desc')))
+    ]);
+    cuentas=ctSnap.docs.map(d=>({id:d.id,...d.data()}));
+    traspasos=trSnap.docs.map(d=>({id:d.id,...d.data()}));
+    renderCuentas();
+    actualizarSelectCuentas();
+  }catch(e){console.error(e);}
+}
+
+function actualizarSelectCuentas(){
+  const opts=cuentas.map(c=>`<option value="${c.banco}">${bancoIcon[c.banco]||'🏦'} ${c.alias||c.banco}</option>`).join('');
+  const de=document.getElementById('ct-de');
+  const a=document.getElementById('ct-a');
+  const filtro=document.getElementById('ct-filtro');
+  const gcuenta=document.getElementById('g-cuenta');
+  if(de)de.innerHTML=opts;
+  if(a)a.innerHTML=opts;
+  if(filtro)filtro.innerHTML='<option value="">Todas las cuentas</option>'+opts;
+  if(gcuenta&&cuentas.length){
+    gcuenta.innerHTML='<option value="">🏦 ¿De qué cuenta?</option>'+opts;
+  }
+}
+
+function renderCuentas(){
+  const list=document.getElementById('ct-list');
+  if(!list)return;
+  const total=cuentas.reduce((s,c)=>s+c.saldo,0);
+  const ctTotal=document.getElementById('ct-total');if(ctTotal)ctTotal.textContent=fmt(total);
+  const totalTrasp=traspasos.reduce((s,t)=>s+t.monto,0);
+  const ctTrasp=document.getElementById('ct-traspasos');if(ctTrasp)ctTrasp.textContent=fmt(totalTrasp);
+
+  if(!cuentas.length){list.innerHTML='<p class="empty">Agrega tus cuentas abajo.</p>';return;}
+
+  list.innerHTML=cuentas.map(c=>{
+    const gastosC=txs.filter(t=>t.tipo==='gasto'&&(t.cuenta===c.banco||t.cuenta===c.alias)).reduce((s,t)=>s+t.monto,0);
+    const ingresosC=txs.filter(t=>t.tipo==='ingreso'&&(t.cuenta===c.banco||t.cuenta===c.alias)).reduce((s,t)=>s+t.monto,0);
+    return`<div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:0.5px solid #D8EDE5;cursor:pointer" data-ctid="${c.id}">
+      <div style="width:44px;height:44px;border-radius:12px;background:#E8F4EF;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0">${bancoIcon[c.banco]||'🏦'}</div>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:14px;font-weight:500;color:#0D1F1A">${c.alias||c.banco}</div>
+        <div style="font-size:11px;color:#6B9E8A;margin-top:2px">
+          ${gastosC>0?`-${fmt(gastosC)} gastado`:'Sin gastos'} · ${ingresosC>0?`+${fmt(ingresosC)} entrado`:'Sin ingresos'}
+        </div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:16px;font-weight:600;color:${c.saldo>=0?'#0D5C4A':'#A32D2D'}">${fmt(c.saldo)}</div>
+        <div style="font-size:10px;color:#6B9E8A">saldo actual</div>
+      </div>
+      <span style="font-size:11px;color:#0D5C4A;padding:2px 7px;background:#E8F4EF;border-radius:8px">✏️</span>
+    </div>`;
+  }).join('');
+
+  list.querySelectorAll('[data-ctid]').forEach(row=>row.addEventListener('click',()=>{
+    const c=cuentas.find(c=>c.id===row.dataset.ctid);
+    if(c)abrirEditCuenta(c);
+  }));
+
+  const wrap=document.getElementById('ct-traspaso-wrap');
+  const hist=document.getElementById('ct-hist-wrap');
+  if(cuentas.length>=2){if(wrap)wrap.style.display='block';}
+  if(cuentas.length>=1){if(hist)hist.style.display='block';renderHistCuenta('');}
+  actualizarSelectCuentas();
+}
+
+function renderHistCuenta(banco){
+  const list=document.getElementById('ct-hist-list');
+  const titulo=document.getElementById('ct-hist-titulo');
+  if(!list)return;
+  let movs=[];
+  // Gastos de la cuenta
+  txs.filter(t=>!banco||(t.cuenta===banco)).forEach(t=>{
+    movs.push({fecha:t.fecha,desc:t.desc,monto:t.monto,tipo:t.tipo,ts:t.ts||0,src:'tx'});
+  });
+  // Traspasos
+  traspasos.forEach(t=>{
+    if(!banco||t.de===banco)movs.push({fecha:t.fecha,desc:`→ ${t.a}: ${t.nota||'Traspaso'}`,monto:t.monto,tipo:'traspaso-out',ts:t.ts||0});
+    if(!banco||t.a===banco)movs.push({fecha:t.fecha,desc:`← ${t.de}: ${t.nota||'Traspaso'}`,monto:t.monto,tipo:'traspaso-in',ts:t.ts||0});
+  });
+  movs.sort((a,b)=>b.ts-a.ts);
+  if(titulo)titulo.textContent='📋 '+(banco?banco+' — Movimientos':'Todos los movimientos');
+  list.innerHTML=movs.length?movs.slice(0,30).map(m=>{
+    const color=m.tipo==='ingreso'||m.tipo==='traspaso-in'?'#0D5C4A':'#A32D2D';
+    const prefix=m.tipo==='ingreso'||m.tipo==='traspaso-in'?'+':'-';
+    const emoji=m.tipo==='traspaso-out'||m.tipo==='traspaso-in'?'🔄':m.tipo==='ingreso'?'💰':'💸';
+    return`<div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:0.5px solid #D8EDE5">
+      <div style="font-size:20px">${emoji}</div>
+      <div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:500;color:#0D1F1A;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${m.desc}</div><div style="font-size:11px;color:#6B9E8A">${m.fecha}</div></div>
+      <div style="font-size:13px;font-weight:600;color:${color}">${prefix}${fmt(m.monto)}</div>
+    </div>`;
+  }).join(''):'<p class="empty">Sin movimientos.</p>';
+}
+
+document.getElementById('ct-filtro')&&document.getElementById('ct-filtro').addEventListener('change',e=>{
+  renderHistCuenta(e.target.value);
+});
+
+document.getElementById('ct-add').addEventListener('click',async()=>{
+  const banco=document.getElementById('ct-banco').value;
+  const alias=document.getElementById('ct-alias').value.trim()||banco;
+  const saldo=parseFloat(document.getElementById('ct-saldo').value)||0;
+  if(!banco)return;
+  sync('saving');
+  try{
+    const ref=await addDoc(collection(db,'cuentas'),{banco,alias,saldo,ts:Date.now()});
+    cuentas.push({id:ref.id,banco,alias,saldo});
+    ['ct-alias','ct-saldo'].forEach(id=>document.getElementById(id).value='');
+    sync('ok');renderCuentas();
+  }catch(e){sync('error');}
+});
+
+document.getElementById('ct-traspaso-add').addEventListener('click',async()=>{
+  const de=document.getElementById('ct-de').value;
+  const a=document.getElementById('ct-a').value;
+  const monto=parseFloat(document.getElementById('ct-monto-t').value)||0;
+  const fecha=document.getElementById('ct-fecha-t').value||new Date().toISOString().slice(0,10);
+  const nota=document.getElementById('ct-nota-t').value.trim();
+  if(!de||!a||!monto||de===a)return;
+  sync('saving');
+  try{
+    const ts=Date.now();
+    const ref=await addDoc(collection(db,'traspasos'),{de,a,monto,fecha,nota,ts});
+    traspasos.unshift({id:ref.id,de,a,monto,fecha,nota,ts});
+    // Actualizar saldos
+    const ctDe=cuentas.find(c=>c.banco===de);
+    const ctA=cuentas.find(c=>c.banco===a);
+    if(ctDe){ctDe.saldo=Math.max(0,ctDe.saldo-monto);await setDoc(doc(db,'cuentas',ctDe.id),ctDe);}
+    if(ctA){ctA.saldo=ctA.saldo+monto;await setDoc(doc(db,'cuentas',ctA.id),ctA);}
+    ['ct-monto-t','ct-nota-t'].forEach(id=>document.getElementById(id).value='');
+    sync('ok');renderCuentas();
+  }catch(e){sync('error');}
+});
+
+window.abrirEditCuenta = function(c){
+  document.getElementById('modal-titulo').textContent='🏦 Editar cuenta';
+  ['modal-gasto-fields','modal-tarjeta-fields','modal-meta-fields','modal-bud-fields',
+   'modal-srv-fields','modal-hist-fields','modal-suel-fields'].forEach(id=>{
+    const el=document.getElementById(id);if(el)el.style.display='none';
+  });
+  const fields=document.getElementById('modal-ct-fields');
+  if(fields){
+    fields.style.display='block';
+    document.getElementById('modal-ct-id').value=c.id;
+    document.getElementById('modal-ct-alias').value=c.alias;
+    document.getElementById('modal-ct-saldo').value=c.saldo;
+  }
+  abrirModal();
+};
+
+document.getElementById('modal-ct-save')&&document.getElementById('modal-ct-save').addEventListener('click',async()=>{
+  const id=document.getElementById('modal-ct-id').value;
+  const alias=document.getElementById('modal-ct-alias').value.trim();
+  const saldo=parseFloat(document.getElementById('modal-ct-saldo').value)||0;
+  if(!id)return;sync('saving');
+  try{
+    const c=cuentas.find(c=>c.id===id);
+    await setDoc(doc(db,'cuentas',id),{...c,alias,saldo});
+    const idx=cuentas.findIndex(c=>c.id===id);
+    if(idx>-1)cuentas[idx]={...cuentas[idx],alias,saldo};
+    sync('ok');cerrarModal();renderCuentas();
+  }catch(e){sync('error');}
+});
+document.getElementById('modal-ct-del')&&document.getElementById('modal-ct-del').addEventListener('click',async()=>{
+  const id=document.getElementById('modal-ct-id').value;if(!id)return;sync('saving');
+  try{
+    await deleteDoc(doc(db,'cuentas',id));
+    cuentas=cuentas.filter(c=>c.id!==id);
+    sync('ok');cerrarModal();renderCuentas();
+  }catch(e){sync('error');}
+});
+
+// ========== FIN CUENTAS ==========
+
 loadAll();
+loadCuentas();
 
 document.getElementById('btn-ver-analisis').addEventListener('click',()=>{
   document.querySelectorAll('.nb').forEach(x=>x.classList.remove('active'));
