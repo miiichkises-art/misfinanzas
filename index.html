@@ -708,6 +708,52 @@
         <button onclick="cerrarModal()" style="width:100%;padding:13px;font-size:14px;font-weight:500;background:transparent;color:#6B9E8A;border:0.5px solid #C8E0D8;border-radius:14px;cursor:pointer">Cancelar</button>
       </div>
 
+      <!-- CAMPOS SERVICIO -->
+      <div id="modal-srv-fields" style="display:none">
+        <input type="hidden" id="modal-srv-id">
+        <div style="margin-bottom:10px"><input type="text" id="modal-srv-nom" placeholder="Nombre del servicio" style="width:100%;padding:12px;font-size:15px;border:0.5px solid #C8E0D8;border-radius:12px;background:#F0F8F4;color:#0D1F1A;outline:none"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
+          <input type="number" id="modal-srv-monto" placeholder="Monto ($)" inputmode="decimal" style="padding:12px;font-size:15px;border:0.5px solid #C8E0D8;border-radius:12px;background:#F0F8F4;color:#0D1F1A;outline:none">
+          <select id="modal-srv-freq" style="padding:12px;font-size:14px;border:0.5px solid #C8E0D8;border-radius:12px;background:#F0F8F4;color:#0D1F1A;outline:none;-webkit-appearance:none">
+            <option value="mensual">Mensual</option>
+            <option value="bimestral">Bimestral</option>
+            <option value="anual">Anual</option>
+          </select>
+        </div>
+        <div style="margin-bottom:6px;font-size:12px;color:#6B9E8A">📅 Fecha de vencimiento</div>
+        <div style="margin-bottom:16px"><input type="date" id="modal-srv-vence" style="width:100%;padding:12px;font-size:15px;border:0.5px solid #C8E0D8;border-radius:12px;background:#F0F8F4;color:#0D1F1A;outline:none"></div>
+        <button id="modal-srv-save" style="width:100%;padding:14px;font-size:15px;font-weight:500;background:#0D5C4A;color:#fff;border:none;border-radius:14px;cursor:pointer;margin-bottom:8px">💾 Guardar cambios</button>
+        <button id="modal-srv-del" style="width:100%;padding:13px;font-size:14px;font-weight:500;background:transparent;color:#A32D2D;border:0.5px solid #F5C4C4;border-radius:14px;cursor:pointer;margin-bottom:8px">🗑️ Eliminar servicio</button>
+        <button onclick="cerrarModal()" style="width:100%;padding:13px;font-size:14px;font-weight:500;background:transparent;color:#6B9E8A;border:0.5px solid #C8E0D8;border-radius:14px;cursor:pointer">Cancelar</button>
+      </div>
+
+      <!-- HISTORIAL CATEGORÍA PRESUPUESTO -->
+      <div id="modal-hist-fields" style="display:none">
+        <div style="font-size:13px;color:#6B9E8A;margin-bottom:10px" id="modal-hist-label"></div>
+        <div id="modal-hist-list" style="max-height:320px;overflow-y:auto"></div>
+        <div style="margin-top:14px;padding-top:12px;border-top:0.5px solid #C8E0D8;display:flex;justify-content:space-between;font-size:13px">
+          <span style="color:#6B9E8A">Total gastado</span>
+          <span style="font-weight:600;color:#A32D2D" id="modal-hist-total">$0</span>
+        </div>
+        <button onclick="cerrarModal()" style="width:100%;padding:13px;font-size:14px;font-weight:500;background:#0D5C4A;color:#fff;border:none;border-radius:14px;cursor:pointer;margin-top:12px">Cerrar</button>
+      </div>
+
+      <!-- CAMPOS SUELDO RECIBIDO -->
+      <div id="modal-suel-fields" style="display:none">
+        <input type="hidden" id="modal-suel-id">
+        <div style="margin-bottom:10px"><input type="text" id="modal-suel-nom" placeholder="Fuente del ingreso" style="width:100%;padding:12px;font-size:15px;border:0.5px solid #C8E0D8;border-radius:12px;background:#F0F8F4;color:#0D1F1A;outline:none"></div>
+        <div style="margin-bottom:10px"><input type="number" id="modal-suel-monto" placeholder="Monto ($)" inputmode="decimal" style="width:100%;padding:12px;font-size:15px;border:0.5px solid #C8E0D8;border-radius:12px;background:#F0F8F4;color:#0D1F1A;outline:none"></div>
+        <div style="margin-bottom:6px;font-size:12px;color:#6B9E8A">📅 Próxima fecha de pago</div>
+        <div style="margin-bottom:16px"><input type="date" id="modal-suel-fecha" style="width:100%;padding:12px;font-size:15px;border:0.5px solid #C8E0D8;border-radius:12px;background:#F0F8F4;color:#0D1F1A;outline:none"></div>
+        <div style="margin-bottom:6px;font-size:12px;color:#0D5C4A;font-weight:500">✅ Marcar quincena/semana como recibida</div>
+        <div style="margin-bottom:16px">
+          <input type="number" id="modal-suel-recibido" placeholder="Monto recibido hoy ($)" inputmode="decimal" style="width:100%;padding:12px;font-size:15px;border:0.5px solid #C8E0D8;border-radius:12px;background:#E8F4EF;color:#0D1F1A;outline:none">
+        </div>
+        <button id="modal-suel-save" style="width:100%;padding:14px;font-size:15px;font-weight:500;background:#0D5C4A;color:#fff;border:none;border-radius:14px;cursor:pointer;margin-bottom:8px">💾 Guardar cambios</button>
+        <button id="modal-suel-del" style="width:100%;padding:13px;font-size:14px;font-weight:500;background:transparent;color:#A32D2D;border:0.5px solid #F5C4C4;border-radius:14px;cursor:pointer;margin-bottom:8px">🗑️ Eliminar ingreso</button>
+        <button onclick="cerrarModal()" style="width:100%;padding:13px;font-size:14px;font-weight:500;background:transparent;color:#6B9E8A;border:0.5px solid #C8E0D8;border-radius:14px;cursor:pointer">Cancelar</button>
+      </div>
+
     </div>
   </div>
 </div>
@@ -881,7 +927,7 @@ function renderBudget(){
   }).join('');
   el.querySelectorAll('[data-budcat]').forEach(row=>{
     row.addEventListener('click',()=>{
-      abrirEditPresupuesto(row.dataset.budcat, parseFloat(row.dataset.budlim));
+      abrirHistorialCat(row.dataset.budcat, parseFloat(row.dataset.budlim));
     });
   });
 }
@@ -1053,16 +1099,22 @@ function renderSueldos(){
   list.innerHTML=sueldos.length?sueldos.map(s=>{
     const dias=diasPara(s.fecha);
     const dtxt=dias===null?'':dias===0?' · <span style="color:#0D5C4A;font-weight:600">Hoy</span>':dias>0?` · En ${dias} días`:' · Vencido';
-    return`<div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:0.5px solid #D8EDE5">
+    return`<div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:0.5px solid #D8EDE5;cursor:pointer" data-suedit="${s.id}">
       <div style="font-size:22px">💰</div>
       <div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:500;color:#0D1F1A">${s.nombre}</div><div style="font-size:11px;color:#6B9E8A">${freqLabel2(s.freq)}${dtxt}</div></div>
       <div style="font-size:14px;font-weight:600;color:#0D5C4A">${fmt(s.monto)}</div>
-      <button style="background:none;border:none;cursor:pointer;color:#ccc;font-size:18px;padding:0 3px" data-sid="${s.id}">×</button>
+      <span style="font-size:11px;color:#0D5C4A;padding:2px 7px;background:#E8F4EF;border-radius:8px">✏️</span>
+      <button style="background:none;border:none;cursor:pointer;color:#ccc;font-size:18px;padding:0 3px" data-sid="${s.id}" onclick="event.stopPropagation()">×</button>
     </div>`;}).join(''):'<p class="empty">Sin ingresos fijos aún.</p>';
-  list.querySelectorAll('[data-sid]').forEach(b=>b.addEventListener('click',async()=>{
+  list.querySelectorAll('[data-sid]').forEach(b=>b.addEventListener('click',async(e)=>{
+    e.stopPropagation();
     sync('saving');
     try{await deleteDoc(doc(db,'sueldos',b.dataset.sid));sueldos=sueldos.filter(s=>s.id!==b.dataset.sid);sync('ok');renderSueldos();}
     catch(e){sync('error');}
+  }));
+  list.querySelectorAll('[data-suedit]').forEach(card=>card.addEventListener('click',()=>{
+    const s=sueldos.find(s=>s.id===card.dataset.suedit);
+    if(s)abrirEditSueldo(s);
   }));
   const totalMes=sueldos.reduce((t,s)=>t+freqAMes2(s.freq,s.monto),0);
   document.getElementById('su-mes').textContent=fmt(totalMes);
@@ -1101,10 +1153,15 @@ function renderServicios(){
       <div style="font-size:13px;font-weight:600;color:#0D1F1A">${fmt(s.monto)}</div>
       <button style="background:none;border:none;cursor:pointer;color:#ccc;font-size:18px;padding:0 3px" data-svid="${s.id}">×</button>
     </div>`;}).join(''):'<p class="empty">Sin servicios aún.</p>';
-  list.querySelectorAll('[data-svid]').forEach(b=>b.addEventListener('click',async()=>{
+  list.querySelectorAll('[data-svid]').forEach(b=>b.addEventListener('click',async(e)=>{
+    e.stopPropagation();
     sync('saving');
     try{await deleteDoc(doc(db,'servicios',b.dataset.svid));servicios=servicios.filter(s=>s.id!==b.dataset.svid);sync('ok');renderServicios();renderAlertas();}
     catch(e){sync('error');}
+  }));
+  list.querySelectorAll('[data-svedit]').forEach(card=>card.addEventListener('click',()=>{
+    const s=servicios.find(s=>s.id===card.dataset.svedit);
+    if(s)abrirEditServicio(s);
   }));
   const totalMes=servicios.reduce((t,s)=>t+freqMensual2(s.freq,s.monto),0);
   const svTotal=document.getElementById('sv-total');if(svTotal)svTotal.textContent=fmt(totalMes);
@@ -1457,6 +1514,121 @@ document.getElementById('modal-bud-del').addEventListener('click',async()=>{
     await deleteDoc(doc(db,'presupuesto',cat));
     delete budgets[cat];
     sync('ok');cerrarModal();renderBudget();renderResumen();
+  }catch(e){sync('error');}
+});
+
+
+// ========== EDITAR SERVICIO ==========
+window.abrirEditServicio = function(s){
+  document.getElementById('modal-titulo').textContent='🔔 Editar servicio';
+  ['modal-gasto-fields','modal-tarjeta-fields','modal-meta-fields','modal-bud-fields','modal-hist-fields','modal-suel-fields'].forEach(id=>{
+    const el=document.getElementById(id);if(el)el.style.display='none';
+  });
+  document.getElementById('modal-srv-fields').style.display='block';
+  document.getElementById('modal-srv-id').value=s.id;
+  document.getElementById('modal-srv-nom').value=s.nombre;
+  document.getElementById('modal-srv-monto').value=s.monto;
+  document.getElementById('modal-srv-freq').value=s.freq;
+  document.getElementById('modal-srv-vence').value=s.vence||'';
+  abrirModal();
+};
+
+document.getElementById('modal-srv-save').addEventListener('click',async()=>{
+  const id=document.getElementById('modal-srv-id').value;
+  const nombre=document.getElementById('modal-srv-nom').value.trim();
+  const monto=parseFloat(document.getElementById('modal-srv-monto').value)||0;
+  const freq=document.getElementById('modal-srv-freq').value;
+  const vence=document.getElementById('modal-srv-vence').value;
+  if(!id||!nombre)return;
+  sync('saving');
+  try{
+    const s=servicios.find(s=>s.id===id);
+    await setDoc(doc(db,'servicios',id),{...s,nombre,monto,freq,vence});
+    const idx=servicios.findIndex(s=>s.id===id);
+    if(idx>-1)servicios[idx]={...servicios[idx],nombre,monto,freq,vence};
+    sync('ok');cerrarModal();renderServicios();renderAlertas();
+  }catch(e){sync('error');}
+});
+
+document.getElementById('modal-srv-del').addEventListener('click',async()=>{
+  const id=document.getElementById('modal-srv-id').value;if(!id)return;
+  sync('saving');
+  try{
+    await deleteDoc(doc(db,'servicios',id));
+    servicios=servicios.filter(s=>s.id!==id);
+    sync('ok');cerrarModal();renderServicios();renderAlertas();
+  }catch(e){sync('error');}
+});
+
+// ========== HISTORIAL POR CATEGORÍA ==========
+window.abrirHistorialCat = function(cat,limite){
+  document.getElementById('modal-titulo').textContent='📋 '+cat;
+  ['modal-gasto-fields','modal-tarjeta-fields','modal-meta-fields','modal-bud-fields','modal-srv-fields','modal-suel-fields'].forEach(id=>{
+    const el=document.getElementById(id);if(el)el.style.display='none';
+  });
+  document.getElementById('modal-hist-fields').style.display='block';
+  const gastosCat=txs.filter(t=>t.tipo==='gasto'&&t.cat===cat).sort((a,b)=>b.ts-a.ts);
+  const total=gastosCat.reduce((s,t)=>s+t.monto,0);
+  document.getElementById('modal-hist-label').textContent=`Límite: ${fmt(limite)} · ${gastosCat.length} movimiento${gastosCat.length!==1?'s':''}`;
+  document.getElementById('modal-hist-total').textContent=fmt(total);
+  const list=document.getElementById('modal-hist-list');
+  list.innerHTML=gastosCat.length?gastosCat.map(t=>`
+    <div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:0.5px solid #D8EDE5">
+      <div style="font-size:20px">${catEmoji[t.cat]||'💸'}</div>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:13px;font-weight:500;color:#0D1F1A">${t.desc}</div>
+        <div style="font-size:11px;color:#6B9E8A">${t.fecha}${t.metodo?' · '+metodoIcon(t.metodo).replace(' · ',''):''}</div>
+      </div>
+      <div style="font-size:13px;font-weight:600;color:#A32D2D">-${fmt(t.monto)}</div>
+    </div>`).join(''):'<p style="font-size:13px;color:#6B9E8A;padding:10px 0">Sin gastos en esta categoría.</p>';
+  abrirModal();
+};
+
+// ========== EDITAR SUELDO ==========
+window.abrirEditSueldo = function(s){
+  document.getElementById('modal-titulo').textContent='💰 Editar ingreso fijo';
+  ['modal-gasto-fields','modal-tarjeta-fields','modal-meta-fields','modal-bud-fields','modal-srv-fields','modal-hist-fields'].forEach(id=>{
+    const el=document.getElementById(id);if(el)el.style.display='none';
+  });
+  document.getElementById('modal-suel-fields').style.display='block';
+  document.getElementById('modal-suel-id').value=s.id;
+  document.getElementById('modal-suel-nom').value=s.nombre;
+  document.getElementById('modal-suel-monto').value=s.monto;
+  document.getElementById('modal-suel-fecha').value=s.fecha||'';
+  document.getElementById('modal-suel-recibido').value='';
+  abrirModal();
+};
+
+document.getElementById('modal-suel-save').addEventListener('click',async()=>{
+  const id=document.getElementById('modal-suel-id').value;
+  const nombre=document.getElementById('modal-suel-nom').value.trim();
+  const monto=parseFloat(document.getElementById('modal-suel-monto').value)||0;
+  const fecha=document.getElementById('modal-suel-fecha').value;
+  const recibido=parseFloat(document.getElementById('modal-suel-recibido').value)||0;
+  if(!id||!nombre)return;
+  sync('saving');
+  try{
+    const s=sueldos.find(s=>s.id===id);
+    await setDoc(doc(db,'sueldos',id),{...s,nombre,monto,fecha});
+    const idx=sueldos.findIndex(s=>s.id===id);
+    if(idx>-1)sueldos[idx]={...sueldos[idx],nombre,monto,fecha};
+    // Si marcó como recibido, registrar como ingreso en transacciones
+    if(recibido>0){
+      const ts=Date.now();
+      const ref=await addDoc(collection(db,'transacciones'),{tipo:'ingreso',monto:recibido,cat:'Sueldo',desc:nombre,fecha:new Date().toISOString().slice(0,10),metodo:'transferencia',ts});
+      txs.unshift({id:ref.id,tipo:'ingreso',monto:recibido,cat:'Sueldo',desc:nombre,fecha:new Date().toISOString().slice(0,10),metodo:'transferencia',ts});
+    }
+    sync('ok');cerrarModal();renderSueldos();renderGList();renderResumen();updateTopbar();
+  }catch(e){sync('error');}
+});
+
+document.getElementById('modal-suel-del').addEventListener('click',async()=>{
+  const id=document.getElementById('modal-suel-id').value;if(!id)return;
+  sync('saving');
+  try{
+    await deleteDoc(doc(db,'sueldos',id));
+    sueldos=sueldos.filter(s=>s.id!==id);
+    sync('ok');cerrarModal();renderSueldos();
   }catch(e){sync('error');}
 });
 
