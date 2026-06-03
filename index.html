@@ -172,6 +172,8 @@
             <option value="Studio">🎬 Studio</option>
             <option value="El Cantinero">🍺 El Cantinero</option>
           </optgroup>
+          <option value="Recargas">📱 Recargas</option>
+          <option value="Recargas">📱 Recargas</option>
           <option value="Otro">🔧 Otro</option>
         </select></div>
         <div class="frow"><input type="text" id="g-desc" placeholder="Descripción (opcional)"></div>
@@ -228,6 +230,8 @@
             <option value="Studio">🎬 Studio</option>
             <option value="El Cantinero">🍺 El Cantinero</option>
           </optgroup>
+          <option value="Recargas">📱 Recargas</option>
+          <option value="Recargas">📱 Recargas</option>
           <option value="Otro">🔧 Otro</option>
         </select></div>
         <div class="frow"><input type="number" id="b-lim" placeholder="Límite mensual ($)" inputmode="decimal"></div>
@@ -291,6 +295,7 @@
           <div class="frow"><select id="a-tar"></select></div>
           <div class="frow"><input type="number" id="a-mon" placeholder="Monto abonado ($)" inputmode="decimal"></div>
           <button class="btnp green" id="a-add">Registrar abono</button>
+          <div id="abono-confirm" style="display:none;margin-top:10px;padding:12px;background:#E8F4EF;border-radius:12px;font-size:13px;font-weight:500;color:#0D5C4A;text-align:center"></div>
           <div id="a-list" style="margin-top:12px"></div>
         </div>
       </div>
@@ -445,7 +450,77 @@
 
         <!-- FONDO DE EMERGENCIA + EFECTIVO -->
     <!-- NEGOCIOS -->
-    <div id="sec-negocios" class="section">
+    <!-- SOBRES QUINCENALES -->
+    <div id="sec-sobres" class="section">
+      <div style="height:6px"></div>
+
+      <div style="background:linear-gradient(135deg,#0D5C4A,#1D9E75);border-radius:16px;padding:16px;margin-bottom:14px;color:#fff">
+        <div style="font-size:12px;opacity:.8;margin-bottom:4px">💌 Quincena activa</div>
+        <div style="font-size:22px;font-weight:600" id="sob-periodo">—</div>
+        <div style="display:flex;justify-content:space-between;margin-top:10px">
+          <div><div style="font-size:11px;opacity:.8">Presupuestado</div><div style="font-size:16px;font-weight:500" id="sob-total">$0</div></div>
+          <div><div style="font-size:11px;opacity:.8">Gastado</div><div style="font-size:16px;font-weight:500" id="sob-gastado">$0</div></div>
+          <div><div style="font-size:11px;opacity:.8">Disponible</div><div style="font-size:16px;font-weight:500" id="sob-disponible">$0</div></div>
+        </div>
+      </div>
+
+      <div class="card" id="sob-lista">
+        <div class="ctitle">💌 Mis sobres</div>
+        <p class="empty">Toca "Nueva quincena" para activar tus sobres.</p>
+      </div>
+
+      <button class="btnp green" id="sob-nueva-btn" style="margin-bottom:10px">🎉 Nueva quincena</button>
+      <button class="btnp" id="sob-config-btn" style="background:#E8F4EF;color:#0D5C4A;border:0.5px solid #C8E0D8">⚙️ Configurar sobres</button>
+
+      <div id="sob-config" style="display:none;margin-top:10px">
+        <div class="card">
+          <div class="ctitle">⚙️ Montos por quincena</div>
+          <div id="sob-config-lista"></div>
+          <div style="height:8px"></div>
+          <div class="frow">
+            <select id="sob-cat" style="flex:2">
+              <option value="Transporte">🚌 Transporte/Urbani</option>
+              <option value="Despensa">🛒 Despensa</option>
+              <option value="Comida">🍽️ Comida</option>
+              <option value="Servicios">⚡ Servicios</option>
+              <option value="Gastos hormiga">🐜 Gastos hormiga</option>
+              <option value="El Cantinero">🍺 El Cantinero</option>
+              <option value="Salud">💊 Salud</option>
+              <option value="Recargas">📱 Recargas</option>
+              <option value="Ropa">👗 Ropa</option>
+              <option value="Entretenimiento">🎉 Entretenimiento</option>
+              <option value="Otro">🔧 Otro</option>
+            </select>
+            <input type="number" id="sob-monto" placeholder="Monto ($)" inputmode="decimal" style="flex:1">
+          </div>
+          <button class="btnp green" id="sob-add-cat">Agregar sobre</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CIERRE MENSUAL -->
+    <div id="sec-cierre" class="section">
+      <div style="height:6px"></div>
+      <div style="background:#FEF3E2;border-radius:14px;padding:14px;margin-bottom:12px">
+        <div style="font-size:13px;font-weight:600;color:#854F0B;margin-bottom:4px">📅 ¿Qué es el cierre mensual?</div>
+        <div style="font-size:12px;color:#633806;line-height:1.6">Al cerrar el mes se guarda un resumen completo de todos tus gastos e ingresos. Puedes consultarlo cuando quieras. El mes nuevo arranca en cero y limpio.</div>
+      </div>
+
+      <div class="card" id="cierre-resumen-actual">
+        <div class="ctitle">📊 Resumen del mes actual</div>
+        <div id="cierre-datos"></div>
+      </div>
+
+      <button class="btnp" id="cierre-btn" style="background:#854F0B;color:#fff;margin-bottom:14px">🔒 Cerrar mes y arrancar nuevo</button>
+
+      <div class="card">
+        <div class="ctitle">📚 Meses anteriores</div>
+        <div id="cierre-historial"><p class="empty">Sin meses cerrados aún.</p></div>
+      </div>
+    </div>
+
+        <div id="sec-negocios" class="section">
       <div style="height:6px"></div>
 
       <div style="display:flex;background:#DFF0E8;border-radius:12px;padding:3px;margin-bottom:14px">
@@ -592,6 +667,60 @@
 
     </div>
 
+        <!-- MENÚ PRINCIPAL -->
+    <div id="sec-menu" class="section">
+      <div style="height:6px"></div>
+      <div style="font-size:13px;color:#6B9E8A;margin-bottom:14px;text-align:center">¿A dónde quieres ir?</div>
+      <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:10px">
+
+        <button onclick="irA('presupuesto')" style="background:#fff;border:0.5px solid #C8E0D8;border-radius:16px;padding:16px 8px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px">
+          <span style="font-size:28px">📊</span>
+          <span style="font-size:11px;font-weight:500;color:#0D1F1A">Presupuesto</span>
+        </button>
+
+        <button onclick="irA('metas')" style="background:#fff;border:0.5px solid #C8E0D8;border-radius:16px;padding:16px 8px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px">
+          <span style="font-size:28px">🎯</span>
+          <span style="font-size:11px;font-weight:500;color:#0D1F1A">Metas</span>
+        </button>
+
+        <button onclick="irA('tarjetas')" style="background:#fff;border:0.5px solid #C8E0D8;border-radius:16px;padding:16px 8px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px">
+          <span style="font-size:28px">💳</span>
+          <span style="font-size:11px;font-weight:500;color:#0D1F1A">Tarjetas</span>
+        </button>
+
+        <button onclick="irA('cuentas')" style="background:#fff;border:0.5px solid #C8E0D8;border-radius:16px;padding:16px 8px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px">
+          <span style="font-size:28px">🏦</span>
+          <span style="font-size:11px;font-weight:500;color:#0D1F1A">Cuentas</span>
+        </button>
+
+        <button onclick="irA('sobres')" style="background:#E8F4EF;border:0.5px solid #0D5C4A;border-radius:16px;padding:16px 8px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px">
+          <span style="font-size:28px">💌</span>
+          <span style="font-size:11px;font-weight:600;color:#0D5C4A">Sobres</span>
+        </button>
+
+        <button onclick="irA('hogar')" style="background:#fff;border:0.5px solid #C8E0D8;border-radius:16px;padding:16px 8px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px">
+          <span style="font-size:28px">🏡</span>
+          <span style="font-size:11px;font-weight:500;color:#0D1F1A">Hogar</span>
+        </button>
+
+        <button onclick="irA('negocios')" style="background:#fff;border:0.5px solid #C8E0D8;border-radius:16px;padding:16px 8px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px">
+          <span style="font-size:28px">🎬</span>
+          <span style="font-size:11px;font-weight:500;color:#0D1F1A">Negocio</span>
+        </button>
+
+        <button onclick="irA('fondo')" style="background:#fff;border:0.5px solid #C8E0D8;border-radius:16px;padding:16px 8px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px">
+          <span style="font-size:28px">🆘</span>
+          <span style="font-size:11px;font-weight:500;color:#0D1F1A">Fondo</span>
+        </button>
+
+        <button onclick="irA('cierre')" style="background:#fff;border:0.5px solid #C8E0D8;border-radius:16px;padding:16px 8px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px">
+          <span style="font-size:28px">📅</span>
+          <span style="font-size:11px;font-weight:500;color:#0D1F1A">Cierre mes</span>
+        </button>
+
+      </div>
+    </div>
+
         <!-- ANÁLISIS -->
     <div id="sec-analisis" class="section" style="padding:0">
       <div style="padding:14px 16px 0">
@@ -646,16 +775,11 @@
 
   </div>
 
+  <!-- BARRA INFERIOR SIMPLIFICADA -->
   <div class="navbar">
     <button class="nb active" data-s="resumen"><span style="font-size:20px;line-height:1">🏠</span><span>Inicio</span></button>
     <button class="nb" data-s="gastos"><span style="font-size:20px;line-height:1">💸</span><span>Gastos</span></button>
-    <button class="nb" data-s="presupuesto"><span style="font-size:20px;line-height:1">📊</span><span>Presupuesto</span></button>
-    <button class="nb" data-s="metas"><span style="font-size:20px;line-height:1">🎯</span><span>Metas</span></button>
-    <button class="nb" data-s="tarjetas"><span style="font-size:20px;line-height:1">💳</span><span>Tarjetas</span></button>
-    <button class="nb" data-s="cuentas"><span style="font-size:20px;line-height:1">🏦</span><span>Cuentas</span></button>
-    <button class="nb" data-s="hogar"><span style="font-size:20px;line-height:1">🏡</span><span>Hogar</span></button>
-    <button class="nb" data-s="negocios"><span style="font-size:20px;line-height:1">🎬</span><span>Negocio</span></button>
-    <button class="nb" data-s="fondo"><span style="font-size:20px;line-height:1">🆘</span><span>Fondo</span></button>
+    <button class="nb" data-s="menu"><span style="font-size:20px;line-height:1">☰</span><span>Menú</span></button>
     <button class="nb" data-s="analisis"><span style="font-size:20px;line-height:1">📈</span><span>Análisis</span></button>
     <button class="nb" data-s="ia"><span style="font-size:20px;line-height:1">🤖</span><span>IA</span></button>
   </div>
@@ -685,9 +809,12 @@
           <option value="Gastos eventuales">🎲 Gastos eventuales</option>
           <option value="Studio">🎬 Studio</option>
           <option value="El Cantinero">🍺 El Cantinero</option>
+          <option value="Recargas">📱 Recargas</option>
+          <option value="Recargas">📱 Recargas</option>
           <option value="Otro">🔧 Otro</option>
         </select></div>
         <div style="margin-bottom:10px"><input type="text" id="modal-g-desc" placeholder="Descripción" style="width:100%;padding:12px;font-size:15px;border:0.5px solid #C8E0D8;border-radius:12px;background:#F0F8F4;color:#0D1F1A;outline:none"></div>
+        <div style="margin-bottom:10px"><input type="date" id="modal-g-fecha" style="width:100%;padding:12px;font-size:15px;border:0.5px solid #C8E0D8;border-radius:12px;background:#F0F8F4;color:#0D1F1A;outline:none"></div>
         <div style="margin-bottom:16px"><select id="modal-g-metodo" style="width:100%;padding:12px;font-size:15px;border:0.5px solid #C8E0D8;border-radius:12px;background:#F0F8F4;color:#0D1F1A;outline:none;-webkit-appearance:none">
           <option value="efectivo">💵 Efectivo</option>
           <option value="debito">💳 Débito</option>
@@ -914,7 +1041,7 @@ const catEmoji={
   'Despensa':'🛒','Comida':'🍽️','Servicios':'⚡','Remodelación':'🔨',
   'Transporte':'🚌','Salud':'💊','Ropa':'👗','Gastos hormiga':'🐜',
   'Trámites':'📄','Entretenimiento':'🎉','Gastos eventuales':'🎲',
-  'Studio':'🎬','El Cantinero':'🍺','Otro':'🔧','ingreso':'💰',
+  'Studio':'🎬','El Cantinero':'🍺','Otro':'🔧','ingreso':'💰','Recargas':'📱',
   'Comida / Restaurantes':'🍽️','Servicios (luz, agua, gas)':'⚡',
   'Hogar / Remodelación':'🔨','Trabajo / Studio':'🎬'
 };
@@ -932,11 +1059,30 @@ function updateTopbar(){
   el.textContent=fmt(bal);el.style.color=bal>=0?'#1D9E75':'#C0392B';
 }
 
+
+window.irA = function(sec){
+  document.querySelectorAll('.nb').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.section').forEach(x=>x.classList.remove('active'));
+  const secEl=document.getElementById('sec-'+sec);
+  if(secEl)secEl.classList.add('active');
+  if(sec==='analisis')setTimeout(renderAnalisis,100);
+  if(sec==='cierre')renderCierreResumen();
+  if(sec==='sobres')renderSobres();
+};
+
+// Actualizar navegación para incluir menu
 document.querySelectorAll('.nb').forEach(b=>b.addEventListener('click',()=>{
   document.querySelectorAll('.nb').forEach(x=>x.classList.remove('active'));
   document.querySelectorAll('.section').forEach(x=>x.classList.remove('active'));
-  b.classList.add('active');document.getElementById('sec-'+b.dataset.s).classList.add('active');
+  b.classList.add('active');
+  const sec=b.dataset.s;
+  const secEl=document.getElementById('sec-'+sec);
+  if(secEl)secEl.classList.add('active');
+  if(sec==='analisis')setTimeout(renderAnalisis,100);
+  if(sec==='cierre')renderCierreResumen();
+  if(sec==='sobres')renderSobres();
 }));
+
 
 tipoGasto='gasto'; // Solo gastos en esta sección
 
@@ -1105,7 +1251,15 @@ document.getElementById('a-add').addEventListener('click',async()=>{
     const fecha=new Date().toLocaleDateString('es-MX');const ts=Date.now();
     await Promise.all([addDoc(collection(db,'abonos'),{nom:t.nom,mon:real,fecha,ts}),setDoc(doc(db,'tarjetas',tid),{nom:t.nom,sal:t.sal,salOrig:t.salOrig,tasa:t.tasa,min:t.min,lim:t.lim})]);
     abonos.unshift({nom:t.nom,mon:real,fecha,ts,id:ts.toString()});
-    document.getElementById('a-mon').value='';sync('ok');renderTarjetas();renderResumen();renderAbonosList();
+    document.getElementById('a-mon').value='';
+    sync('ok');renderTarjetas();renderResumen();renderAbonosList();
+    // Confirmación visual
+    const confirmEl=document.getElementById('abono-confirm');
+    if(confirmEl){
+      confirmEl.textContent=`✅ Abono registrado. Nuevo saldo: ${fmt(t.sal)}`;
+      confirmEl.style.display='block';
+      setTimeout(()=>{confirmEl.style.display='none';},4000);
+    }
   }catch(e){sync('error');}
 });
 
@@ -1494,6 +1648,7 @@ window.abrirEditGasto = function(tx){
   document.getElementById('modal-g-monto').value=tx.monto;
   document.getElementById('modal-g-cat').value=tx.cat;
   document.getElementById('modal-g-desc').value=tx.desc;
+  document.getElementById('modal-g-fecha').value=tx.fecha||'';
   document.getElementById('modal-g-metodo').value=tx.metodo||'efectivo';
   abrirModal();
 }
@@ -1516,13 +1671,14 @@ document.getElementById('modal-g-save').addEventListener('click',async()=>{
   const monto=parseFloat(document.getElementById('modal-g-monto').value)||0;
   const cat=document.getElementById('modal-g-cat').value;
   const desc=document.getElementById('modal-g-desc').value.trim()||cat;
+  const fecha=document.getElementById('modal-g-fecha').value;
   const metodo=document.getElementById('modal-g-metodo').value;
   if(!monto||!id)return;
   sync('saving');
   try{
-    await setDoc(doc(db,'transacciones',id),{...txs.find(t=>t.id===id),monto,cat,desc,metodo});
+    await setDoc(doc(db,'transacciones',id),{...txs.find(t=>t.id===id),monto,cat,desc,fecha,metodo});
     const idx=txs.findIndex(t=>t.id===id);
-    if(idx>-1)txs[idx]={...txs[idx],monto,cat,desc,metodo};
+    if(idx>-1)txs[idx]={...txs[idx],monto,cat,desc,fecha,metodo};
     sync('ok');cerrarModal();renderGList();renderResumen();updateTopbar();
   }catch(e){sync('error');}
 });
@@ -2024,6 +2180,249 @@ document.getElementById('modal-ct-del')&&document.getElementById('modal-ct-del')
 });
 
 // ========== FIN CUENTAS ==========
+
+// ========== SOBRES QUINCENALES ==========
+let sobresConfig=[], sobresActivos=[], quincenaActual=null;
+
+const sobresDefault=[
+  {cat:'Transporte',monto:350},
+  {cat:'Despensa',monto:400},
+  {cat:'Comida',monto:600},
+  {cat:'Servicios',monto:400},
+  {cat:'Gastos hormiga',monto:200},
+  {cat:'El Cantinero',monto:400},
+  {cat:'Salud',monto:500},
+  {cat:'Recargas',monto:100},
+];
+
+async function loadSobres(){
+  try{
+    const[cfgSnap,actSnap]=await Promise.all([
+      getDocs(collection(db,'sobres_config')),
+      getDocs(query(collection(db,'sobres_activos'),orderBy('ts','desc')))
+    ]);
+    sobresConfig=cfgSnap.docs.map(d=>({id:d.id,...d.data()}));
+    if(!sobresConfig.length){
+      // Cargar defaults
+      for(const s of sobresDefault){
+        const ref=await addDoc(collection(db,'sobres_config'),s);
+        sobresConfig.push({id:ref.id,...s});
+      }
+    }
+    sobresActivos=actSnap.docs.map(d=>({id:d.id,...d.data()}));
+    quincenaActual=sobresActivos[0]||null;
+    renderSobresConfig();
+    renderSobres();
+    renderCierreResumen();
+  }catch(e){console.error('Error cargando sobres:',e);}
+}
+
+function renderSobresConfig(){
+  const list=document.getElementById('sob-config-lista');
+  if(!list)return;
+  list.innerHTML=sobresConfig.map(s=>`
+    <div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:0.5px solid #D8EDE5">
+      <div style="font-size:18px">${catEmoji[s.cat]||'💌'}</div>
+      <div style="flex:1;font-size:13px;font-weight:500;color:#0D1F1A">${s.cat}</div>
+      <input type="number" value="${s.monto}" inputmode="decimal" data-scid="${s.id}"
+        style="width:80px;padding:6px 8px;font-size:13px;font-weight:600;color:#0D5C4A;border:0.5px solid #C8E0D8;border-radius:8px;background:#F0F8F4;text-align:right;outline:none"
+        onblur="guardarSobreConfig(this)"
+        onfocus="this.select()">
+      <button style="background:none;border:none;cursor:pointer;color:#ccc;font-size:16px" data-delscid="${s.id}">×</button>
+    </div>`).join('');
+  list.querySelectorAll('[data-delscid]').forEach(b=>b.addEventListener('click',async()=>{
+    try{await deleteDoc(doc(db,'sobres_config',b.dataset.delscid));sobresConfig=sobresConfig.filter(s=>s.id!==b.dataset.delscid);renderSobresConfig();}
+    catch(e){}
+  }));
+}
+
+function renderSobres(){
+  const lista=document.getElementById('sob-lista');
+  const periodo=document.getElementById('sob-periodo');
+  const sobTotal=document.getElementById('sob-total');
+  const sobGastado=document.getElementById('sob-gastado');
+  const sobDisp=document.getElementById('sob-disponible');
+  if(!lista)return;
+
+  if(!quincenaActual){
+    lista.innerHTML='<div class="ctitle">💌 Mis sobres</div><p class="empty">Toca "Nueva quincena" para activar tus sobres.</p>';
+    if(periodo)periodo.textContent='Sin quincena activa';
+    return;
+  }
+
+  const sobres=quincenaActual.sobres||[];
+  const totalPres=sobres.reduce((s,sb)=>s+sb.monto,0);
+
+  // Calcular gastado por categoría en el período de la quincena
+  const inicio=quincenaActual.inicio;
+  const fin=quincenaActual.fin;
+  let totalGastado=0;
+
+  const sobresConGasto=sobres.map(sb=>{
+    const gastado=txs.filter(t=>t.tipo==='gasto'&&t.cat===sb.cat&&t.fecha>=inicio&&t.fecha<=fin).reduce((s,t)=>s+t.monto,0);
+    totalGastado+=gastado;
+    return{...sb,gastado};
+  });
+
+  if(periodo)periodo.textContent=`${inicio} → ${fin}`;
+  if(sobTotal)sobTotal.textContent=fmt(totalPres);
+  if(sobGastado)sobGastado.textContent=fmt(totalGastado);
+  if(sobDisp)sobDisp.textContent=fmt(totalPres-totalGastado);
+
+  lista.innerHTML='<div class="ctitle">💌 Mis sobres</div>'+sobresConGasto.map(sb=>{
+    const pct=Math.min(100,Math.round(sb.gastado/sb.monto*100));
+    const col=pct>=100?'#E24B4A':pct>=80?'#EF9F27':'#0D5C4A';
+    const resta=Math.max(0,sb.monto-sb.gastado);
+    return`<div style="margin-bottom:14px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div style="display:flex;align-items:center;gap:6px">
+          <span style="font-size:18px">${catEmoji[sb.cat]||'💌'}</span>
+          <span style="font-size:13px;font-weight:500;color:#0D1F1A">${sb.cat}</span>
+        </div>
+        <span style="font-size:12px;color:${col};font-weight:500">${fmt(resta)} restante</span>
+      </div>
+      <div style="height:10px;background:#D8EDE5;border-radius:5px;overflow:hidden;margin-bottom:3px">
+        <div style="height:100%;border-radius:5px;background:${col};width:${pct}%;transition:width .3s"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:#6B9E8A">
+        <span>Gastado: ${fmt(sb.gastado)}</span><span>Sobre: ${fmt(sb.monto)}</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+document.getElementById('sob-nueva-btn').addEventListener('click',async()=>{
+  if(!sobresConfig.length){alert('Configura tus sobres primero.');return;}
+  const hoy=new Date();
+  const dia=hoy.getDate();
+  let inicio,fin;
+  if(dia<=15){
+    inicio=hoy.toISOString().slice(0,8)+'01';
+    fin=hoy.toISOString().slice(0,8)+'15';
+  }else{
+    const ultimo=new Date(hoy.getFullYear(),hoy.getMonth()+1,0).getDate();
+    inicio=hoy.toISOString().slice(0,8)+'16';
+    fin=hoy.toISOString().slice(0,7)+'-'+String(ultimo).padStart(2,'0');
+  }
+  const sobres=sobresConfig.map(s=>({cat:s.cat,monto:s.monto,gastado:0}));
+  sync('saving');
+  try{
+    const ts=Date.now();
+    const ref=await addDoc(collection(db,'sobres_activos'),{inicio,fin,sobres,ts});
+    quincenaActual={id:ref.id,inicio,fin,sobres,ts};
+    sobresActivos.unshift(quincenaActual);
+    sync('ok');renderSobres();
+  }catch(e){sync('error');}
+});
+
+document.getElementById('sob-config-btn').addEventListener('click',()=>{
+  const cfg=document.getElementById('sob-config');
+  cfg.style.display=cfg.style.display==='none'?'block':'none';
+});
+
+document.getElementById('sob-add-cat').addEventListener('click',async()=>{
+  const cat=document.getElementById('sob-cat').value;
+  const monto=parseFloat(document.getElementById('sob-monto').value)||0;
+  if(!cat||!monto)return;
+  sync('saving');
+  try{
+    const ref=await addDoc(collection(db,'sobres_config'),{cat,monto});
+    sobresConfig.push({id:ref.id,cat,monto});
+    document.getElementById('sob-monto').value='';
+    sync('ok');renderSobresConfig();
+  }catch(e){sync('error');}
+});
+
+window.guardarSobreConfig = async function(input){
+  const id=input.dataset.scid;
+  const monto=parseFloat(input.value)||0;
+  if(!id||!monto)return;
+  try{
+    const s=sobresConfig.find(s=>s.id===id);
+    if(!s)return;
+    await setDoc(doc(db,'sobres_config',id),{...s,monto});
+    s.monto=monto;
+    input.style.color='#0D5C4A';
+    sync('ok');
+  }catch(e){sync('error');}
+};
+
+// ========== FIN SOBRES ==========
+
+// ========== CIERRE MENSUAL ==========
+function renderCierreResumen(){
+  const el=document.getElementById('cierre-datos');
+  if(!el)return;
+  const ing=txs.filter(t=>t.tipo==='ingreso').reduce((s,t)=>s+t.monto,0);
+  const gas=txs.filter(t=>t.tipo==='gasto').reduce((s,t)=>s+t.monto,0);
+  const catR={};
+  txs.filter(t=>t.tipo==='gasto').forEach(t=>{catR[t.cat]=(catR[t.cat]||0)+t.monto;});
+  const top3=Object.entries(catR).sort((a,b)=>b[1]-a[1]).slice(0,3);
+  el.innerHTML=`
+    <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:12px">
+      <div style="background:#E8F4EF;border-radius:12px;padding:12px"><div style="font-size:11px;color:#0D5C4A">💰 Ingresos</div><div style="font-size:18px;font-weight:600;color:#0D5C4A">${fmt(ing)}</div></div>
+      <div style="background:#FDEAEA;border-radius:12px;padding:12px"><div style="font-size:11px;color:#A32D2D">💸 Gastos</div><div style="font-size:18px;font-weight:600;color:#A32D2D">${fmt(gas)}</div></div>
+    </div>
+    <div style="font-size:12px;font-weight:500;color:#0D1F1A;margin-bottom:6px">Top categorías:</div>
+    ${top3.map(([cat,monto])=>`<div style="display:flex;justify-content:space-between;font-size:13px;padding:5px 0;border-bottom:0.5px solid #D8EDE5"><span>${catEmoji[cat]||'💸'} ${cat}</span><span style="font-weight:500;color:#A32D2D">${fmt(monto)}</span></div>`).join('')}
+    <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:600;margin-top:10px;color:${ing-gas>=0?'#0D5C4A':'#A32D2D'}">
+      <span>Balance final</span><span>${fmt(ing-gas)}</span>
+    </div>`;
+
+  // Historial de cierres
+  loadCierreHistorial();
+}
+
+async function loadCierreHistorial(){
+  try{
+    const snap=await getDocs(query(collection(db,'cierres_mensuales'),orderBy('ts','desc')));
+    const list=document.getElementById('cierre-historial');
+    if(!list)return;
+    const cierres=snap.docs.map(d=>({id:d.id,...d.data()}));
+    list.innerHTML=cierres.length?cierres.map(c=>`
+      <div style="padding:12px 0;border-bottom:0.5px solid #D8EDE5;cursor:pointer" onclick="verCierre('${c.id}')">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div style="font-size:14px;font-weight:500;color:#0D1F1A">📅 ${c.mes}</div>
+          <div style="font-size:13px;font-weight:600;color:${c.balance>=0?'#0D5C4A':'#A32D2D'}">${fmt(c.balance)}</div>
+        </div>
+        <div style="font-size:11px;color:#6B9E8A;margin-top:2px">${fmt(c.ingresos)} ingresado · ${fmt(c.gastos)} gastado</div>
+      </div>`).join(''):'<p class="empty">Sin meses cerrados aún.</p>';
+  }catch(e){}
+}
+
+window.verCierre=function(id){
+  // Por ahora solo mostrar en alert, después se puede hacer modal
+  alert('Historial de cierre disponible en próxima versión');
+};
+
+document.getElementById('cierre-btn').addEventListener('click',async()=>{
+  const confirmado=confirm('¿Cerrar el mes actual? Se guardará el resumen y los gastos del mes quedarán archivados.');
+  if(!confirmado)return;
+  const mes=new Date().toLocaleDateString('es-MX',{month:'long',year:'numeric'});
+  const ing=txs.filter(t=>t.tipo==='ingreso').reduce((s,t)=>s+t.monto,0);
+  const gas=txs.filter(t=>t.tipo==='gasto').reduce((s,t)=>s+t.monto,0);
+  const catR={};
+  txs.filter(t=>t.tipo==='gasto').forEach(t=>{catR[t.cat]=(catR[t.cat]||0)+t.monto;});
+  sync('saving');
+  try{
+    // Guardar cierre
+    await addDoc(collection(db,'cierres_mensuales'),{
+      mes,ingresos:ing,gastos:gas,balance:ing-gas,
+      categorias:catR,txCount:txs.length,ts:Date.now()
+    });
+    // Archivar transacciones del mes (marcarlas como archivadas)
+    const batch=txs.map(t=>setDoc(doc(db,'transacciones',t.id),{...t,archivado:true}));
+    await Promise.all(batch);
+    // Limpiar vista (no borrar de Firebase, solo filtrar)
+    txs=[];
+    sync('ok');
+    renderAll();
+    renderCierreResumen();
+    alert(`✅ Mes de ${mes} cerrado. Junio arranca en cero.`);
+  }catch(e){sync('error');}
+});
+// ========== FIN CIERRE ==========
+
 
 loadAll();
 loadCuentas();
