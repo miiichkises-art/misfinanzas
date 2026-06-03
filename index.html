@@ -2354,8 +2354,13 @@ function renderCierreResumen(){
   const el=document.getElementById('cierre-datos');
   if(!el)return;
   const hoy2=new Date();
-  const prefijo2=`${hoy2.getFullYear()}-${String(hoy2.getMonth()+1).padStart(2,'0')}`;
-  const mesNombre2=hoy2.toLocaleDateString('es-MX',{month:'long',year:'numeric'});
+  const prefijoActual2=`${hoy2.getFullYear()}-${String(hoy2.getMonth()+1).padStart(2,'0')}`;
+  const mesAnt2=new Date(hoy2.getFullYear(),hoy2.getMonth()-1,1);
+  const prefijoAnt2=`${mesAnt2.getFullYear()}-${String(mesAnt2.getMonth()+1).padStart(2,'0')}`;
+  const hayPendientesAnt=txs.some(t=>t.fecha&&t.fecha.startsWith(prefijoAnt2)&&!t.archivado);
+  const prefijo2=hayPendientesAnt?prefijoAnt2:prefijoActual2;
+  const fechaRes=hayPendientesAnt?mesAnt2:hoy2;
+  const mesNombre2=fechaRes.toLocaleDateString('es-MX',{month:'long',year:'numeric'});
   const txsMesActual=txs.filter(t=>t.fecha&&t.fecha.startsWith(prefijo2)&&!t.archivado);
   const ing=txsMesActual.filter(t=>t.tipo==='ingreso').reduce((s,t)=>s+t.monto,0);
   const gas=txsMesActual.filter(t=>t.tipo==='gasto').reduce((s,t)=>s+t.monto,0);
@@ -2401,11 +2406,19 @@ window.verCierre=function(id){
 
 document.getElementById('cierre-btn').addEventListener('click',async()=>{
   const hoy=new Date();
-  // Detectar el mes a cerrar (el mes anterior si ya estamos en uno nuevo, o el actual)
-  const mesNum=hoy.getMonth(); // 0-11
-  const anio=hoy.getFullYear();
-  const prefijo=`${anio}-${String(mesNum+1).padStart(2,'0')}`; // ej. "2026-05"
-  const mesNombre=hoy.toLocaleDateString('es-MX',{month:'long',year:'numeric'});
+  // Detectar qué mes cerrar: si hay transacciones del mes anterior sin cerrar, cerrar ese
+  const mesActualPrefijo=`${hoy.getFullYear()}-${String(hoy.getMonth()+1).padStart(2,'0')}`;
+  const mesAnterior=new Date(hoy.getFullYear(),hoy.getMonth()-1,1);
+  const mesAnteriorPrefijo=`${mesAnterior.getFullYear()}-${String(mesAnterior.getMonth()+1).padStart(2,'0')}`;
+
+  // Ver si hay transacciones pendientes del mes anterior
+  const txsMesAnterior=txs.filter(t=>t.fecha&&t.fecha.startsWith(mesAnteriorPrefijo)&&!t.archivado);
+  const txsMesActual=txs.filter(t=>t.fecha&&t.fecha.startsWith(mesActualPrefijo)&&!t.archivado);
+
+  // Preferir cerrar el mes anterior si tiene transacciones pendientes
+  const prefijo=txsMesAnterior.length>0?mesAnteriorPrefijo:mesActualPrefijo;
+  const fechaCierre=txsMesAnterior.length>0?mesAnterior:hoy;
+  const mesNombre=fechaCierre.toLocaleDateString('es-MX',{month:'long',year:'numeric'});
 
   // Filtrar SOLO las del mes a cerrar
   const txsMes=txs.filter(t=>t.fecha&&t.fecha.startsWith(prefijo)&&!t.archivado);
