@@ -2353,10 +2353,14 @@ window.guardarSobreConfig = async function(input){
 function renderCierreResumen(){
   const el=document.getElementById('cierre-datos');
   if(!el)return;
-  const ing=txs.filter(t=>t.tipo==='ingreso').reduce((s,t)=>s+t.monto,0);
-  const gas=txs.filter(t=>t.tipo==='gasto').reduce((s,t)=>s+t.monto,0);
+  const hoy2=new Date();
+  const prefijo2=`${hoy2.getFullYear()}-${String(hoy2.getMonth()+1).padStart(2,'0')}`;
+  const mesNombre2=hoy2.toLocaleDateString('es-MX',{month:'long',year:'numeric'});
+  const txsMesActual=txs.filter(t=>t.fecha&&t.fecha.startsWith(prefijo2)&&!t.archivado);
+  const ing=txsMesActual.filter(t=>t.tipo==='ingreso').reduce((s,t)=>s+t.monto,0);
+  const gas=txsMesActual.filter(t=>t.tipo==='gasto').reduce((s,t)=>s+t.monto,0);
   const catR={};
-  txs.filter(t=>t.tipo==='gasto').forEach(t=>{catR[t.cat]=(catR[t.cat]||0)+t.monto;});
+  txsMesActual.filter(t=>t.tipo==='gasto').forEach(t=>{catR[t.cat]=(catR[t.cat]||0)+t.monto;});
   const top3=Object.entries(catR).sort((a,b)=>b[1]-a[1]).slice(0,3);
   el.innerHTML=`
     <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:12px">
@@ -2396,29 +2400,43 @@ window.verCierre=function(id){
 };
 
 document.getElementById('cierre-btn').addEventListener('click',async()=>{
-  const confirmado=confirm('¿Cerrar el mes actual? Se guardará el resumen y los gastos del mes quedarán archivados.');
+  const hoy=new Date();
+  // Detectar el mes a cerrar (el mes anterior si ya estamos en uno nuevo, o el actual)
+  const mesNum=hoy.getMonth(); // 0-11
+  const anio=hoy.getFullYear();
+  const prefijo=`${anio}-${String(mesNum+1).padStart(2,'0')}`; // ej. "2026-05"
+  const mesNombre=hoy.toLocaleDateString('es-MX',{month:'long',year:'numeric'});
+
+  // Filtrar SOLO las del mes a cerrar
+  const txsMes=txs.filter(t=>t.fecha&&t.fecha.startsWith(prefijo)&&!t.archivado);
+
+  if(!txsMes.length){
+    alert(`No hay movimientos de ${mesNombre} para cerrar.`);
+    return;
+  }
+
+  const confirmado=confirm(`¿Cerrar ${mesNombre}? Se archivarán ${txsMes.length} movimientos de ese mes. Los de otros meses no se tocan.`);
   if(!confirmado)return;
-  const mes=new Date().toLocaleDateString('es-MX',{month:'long',year:'numeric'});
-  const ing=txs.filter(t=>t.tipo==='ingreso').reduce((s,t)=>s+t.monto,0);
-  const gas=txs.filter(t=>t.tipo==='gasto').reduce((s,t)=>s+t.monto,0);
+
+  const ing=txsMes.filter(t=>t.tipo==='ingreso').reduce((s,t)=>s+t.monto,0);
+  const gas=txsMes.filter(t=>t.tipo==='gasto').reduce((s,t)=>s+t.monto,0);
   const catR={};
-  txs.filter(t=>t.tipo==='gasto').forEach(t=>{catR[t.cat]=(catR[t.cat]||0)+t.monto;});
+  txsMes.filter(t=>t.tipo==='gasto').forEach(t=>{catR[t.cat]=(catR[t.cat]||0)+t.monto;});
+
   sync('saving');
   try{
-    // Guardar cierre
     await addDoc(collection(db,'cierres_mensuales'),{
-      mes,ingresos:ing,gastos:gas,balance:ing-gas,
-      categorias:catR,txCount:txs.length,ts:Date.now()
+      mes:mesNombre,prefijo,ingresos:ing,gastos:gas,balance:ing-gas,
+      categorias:catR,txCount:txsMes.length,ts:Date.now()
     });
-    // Archivar transacciones del mes (marcarlas como archivadas)
-    const batch=txs.map(t=>setDoc(doc(db,'transacciones',t.id),{...t,archivado:true}));
-    await Promise.all(batch);
-    // Limpiar vista (no borrar de Firebase, solo filtrar)
-    txs=[];
+    // Archivar SOLO las del mes cerrado
+    await Promise.all(txsMes.map(t=>setDoc(doc(db,'transacciones',t.id),{...t,archivado:true})));
+    // Quitar del array local solo las del mes cerrado
+    txs=txs.filter(t=>!t.fecha||!t.fecha.startsWith(prefijo));
     sync('ok');
     renderAll();
     renderCierreResumen();
-    alert(`✅ Mes de ${mes} cerrado. Junio arranca en cero.`);
+    alert(`✅ ${mesNombre} cerrado correctamente. ${txsMes.length} movimientos archivados. Los demás meses siguen intactos.`);
   }catch(e){sync('error');}
 });
 // ========== FIN CIERRE ==========
