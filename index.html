@@ -139,6 +139,16 @@
       <div class="card"><div class="ctitle">📊 Presupuesto del mes</div><div id="r-bud"><p class="empty">Configura en Presupuesto.</p></div></div>
       <div class="card"><div class="ctitle">🎯 Metas de ahorro</div><div id="r-met"><p class="empty">Agrega metas en Metas.</p></div></div>
 
+      <!-- TARJETA GASTOS INESPERADOS -->
+      <div class="card" id="card-inesperados" style="border-left:3px solid #EF9F27">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+          <div class="ctitle" style="margin:0">⚡ Gastos inesperados</div>
+          <div style="font-size:18px;font-weight:600;color:#854F0B" id="r-ines-total">$0</div>
+        </div>
+        <div id="r-ines-list"><p class="empty" style="font-size:12px">Sin gastos inesperados este mes.</p></div>
+        <button onclick="irA('gastos')" style="width:100%;margin-top:10px;padding:9px;font-size:13px;font-weight:500;background:#FEF3E2;color:#854F0B;border:0.5px solid #EF9F27;border-radius:10px;cursor:pointer">+ Registrar gasto inesperado</button>
+      </div>
+
       <button id="btn-ver-analisis" style="width:100%;padding:13px;font-size:14px;font-weight:500;background:#E8F4EF;color:#0D5C4A;border:0.5px solid #C8E0D8;border-radius:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:4px">
         <span>📈 Ver análisis de gastos</span>
         <span style="font-size:16px">→</span>
@@ -174,6 +184,7 @@
           </optgroup>
           <option value="Recargas">📱 Recargas</option>
           <option value="Recargas">📱 Recargas</option>
+          <option value="Gasto inesperado">⚡ Gasto inesperado</option>
           <option value="Otro">🔧 Otro</option>
         </select></div>
         <div class="frow"><input type="text" id="g-desc" placeholder="Descripción (opcional)"></div>
@@ -232,6 +243,7 @@
           </optgroup>
           <option value="Recargas">📱 Recargas</option>
           <option value="Recargas">📱 Recargas</option>
+          <option value="Gasto inesperado">⚡ Gasto inesperado</option>
           <option value="Otro">🔧 Otro</option>
         </select></div>
         <div class="frow"><input type="number" id="b-lim" placeholder="Límite mensual ($)" inputmode="decimal"></div>
@@ -811,6 +823,7 @@
           <option value="El Cantinero">🍺 El Cantinero</option>
           <option value="Recargas">📱 Recargas</option>
           <option value="Recargas">📱 Recargas</option>
+          <option value="Gasto inesperado">⚡ Gasto inesperado</option>
           <option value="Otro">🔧 Otro</option>
         </select></div>
         <div style="margin-bottom:10px"><input type="text" id="modal-g-desc" placeholder="Descripción" style="width:100%;padding:12px;font-size:15px;border:0.5px solid #C8E0D8;border-radius:12px;background:#F0F8F4;color:#0D1F1A;outline:none"></div>
@@ -979,7 +992,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
-import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, setDoc, query, orderBy } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, setDoc, query, orderBy, where } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCia9xah8Lkh-CwjNZwG1migvOTyMMo0us",
@@ -1013,7 +1026,7 @@ document.getElementById('g-fecha').value=now.toISOString().slice(0,10);
 async function loadAll(){
   try{
     const[txSnap,metSnap,tarSnap,aboSnap,budSnap,suSnap,svSnap,ahSnap]=await Promise.all([
-      getDocs(query(collection(db,'transacciones'),orderBy('ts','desc'))),
+      getDocs(query(collection(db,'transacciones'),where('archivado','!=',true),orderBy('archivado'),orderBy('ts','desc'))),
       getDocs(collection(db,'metas')),
       getDocs(collection(db,'tarjetas')),
       getDocs(query(collection(db,'abonos'),orderBy('ts','desc'))),
@@ -1022,7 +1035,7 @@ async function loadAll(){
       getDocs(collection(db,'servicios')),
       getDocs(collection(db,'ahorros_ext'))
     ]);
-    txs=txSnap.docs.map(d=>({id:d.id,...d.data()}));
+    txs=txSnap.docs.map(d=>({id:d.id,...d.data()})).filter(t=>!t.archivado);
     metas=metSnap.docs.map(d=>({id:d.id,...d.data()}));
     tarjetas=tarSnap.docs.map(d=>({id:d.id,...d.data()}));
     abonos=aboSnap.docs.map(d=>({id:d.id,...d.data()}));
@@ -1035,13 +1048,13 @@ async function loadAll(){
   }catch(e){document.getElementById('loading').style.display='none';sync('error');console.error(e);}
 }
 
-function renderAll(){updateTopbar();renderResumen();renderGList();renderBudget();renderMetas();renderTarjetas();renderAbonosList();renderSueldos();renderServicios();renderAhorrosExt();}
+function renderAll(){updateTopbar();renderResumen();renderGList();renderBudget();renderMetas();renderTarjetas();renderAbonosList();renderSueldos();renderServicios();renderAhorrosExt();renderInesperados();}
 
 const catEmoji={
   'Despensa':'🛒','Comida':'🍽️','Servicios':'⚡','Remodelación':'🔨',
   'Transporte':'🚌','Salud':'💊','Ropa':'👗','Gastos hormiga':'🐜',
   'Trámites':'📄','Entretenimiento':'🎉','Gastos eventuales':'🎲',
-  'Studio':'🎬','El Cantinero':'🍺','Otro':'🔧','ingreso':'💰','Recargas':'📱',
+  'Studio':'🎬','El Cantinero':'🍺','Otro':'🔧','ingreso':'💰','Recargas':'📱','Gasto inesperado':'⚡',
   'Comida / Restaurantes':'🍽️','Servicios (luz, agua, gas)':'⚡',
   'Hogar / Remodelación':'🔨','Trabajo / Studio':'🎬'
 };
@@ -2180,6 +2193,48 @@ document.getElementById('modal-ct-del')&&document.getElementById('modal-ct-del')
 });
 
 // ========== FIN CUENTAS ==========
+
+// ========== GASTOS INESPERADOS ==========
+function renderInesperados(){
+  const list=document.getElementById('r-ines-list');
+  const total=document.getElementById('r-ines-total');
+  if(!list)return;
+
+  const hoy=new Date();
+  const prefijo=`${hoy.getFullYear()}-${String(hoy.getMonth()+1).padStart(2,'0')}`;
+  const inesperados=txs.filter(t=>t.tipo==='gasto'&&t.cat==='Gasto inesperado'&&t.fecha&&t.fecha.startsWith(prefijo));
+
+  const totalMonto=inesperados.reduce((s,t)=>s+t.monto,0);
+  if(total)total.textContent=fmt(totalMonto);
+
+  if(!inesperados.length){
+    list.innerHTML='<p class="empty" style="font-size:12px">Sin gastos inesperados este mes. 🎉</p>';
+    return;
+  }
+
+  list.innerHTML=inesperados.slice(0,5).map(t=>`
+    <div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:0.5px solid #FAEEDA;cursor:pointer" data-ines-id="${t.id}">
+      <div style="font-size:18px">⚡</div>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:13px;font-weight:500;color:#0D1F1A;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${t.desc}</div>
+        <div style="font-size:11px;color:#6B9E8A">${t.fecha}${t.metodo?' · '+metodoIcon(t.metodo).replace(' · ',''):''}</div>
+      </div>
+      <div style="font-size:13px;font-weight:600;color:#854F0B">-${fmt(t.monto)}</div>
+      <span style="font-size:11px;color:#854F0B;padding:2px 6px;background:#FEF3E2;border-radius:8px">✏️</span>
+    </div>`).join('');
+
+  list.querySelectorAll('[data-ines-id]').forEach(row=>row.addEventListener('click',()=>{
+    const tx=txs.find(t=>t.id===row.dataset.inesId);
+    if(tx)abrirEditGasto(tx);
+  }));
+
+  // Mostrar "ver todos" si hay más de 5
+  if(inesperados.length>5){
+    list.innerHTML+=`<div style="text-align:center;padding:8px 0;font-size:12px;color:#0D5C4A;cursor:pointer" onclick="irA('gastos')">Ver todos (${inesperados.length}) →</div>`;
+  }
+}
+// ========== FIN INESPERADOS ==========
+
 
 // ========== SOBRES QUINCENALES ==========
 let sobresConfig=[], sobresActivos=[], quincenaActual=null;
