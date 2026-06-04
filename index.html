@@ -992,7 +992,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
-import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, setDoc, query, orderBy, where } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, setDoc, query, orderBy } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCia9xah8Lkh-CwjNZwG1migvOTyMMo0us",
@@ -1026,7 +1026,7 @@ document.getElementById('g-fecha').value=now.toISOString().slice(0,10);
 async function loadAll(){
   try{
     const[txSnap,metSnap,tarSnap,aboSnap,budSnap,suSnap,svSnap,ahSnap]=await Promise.all([
-      getDocs(query(collection(db,'transacciones'),where('archivado','!=',true),orderBy('archivado'),orderBy('ts','desc'))),
+      getDocs(query(collection(db,'transacciones'),orderBy('ts','desc'))),
       getDocs(collection(db,'metas')),
       getDocs(collection(db,'tarjetas')),
       getDocs(query(collection(db,'abonos'),orderBy('ts','desc'))),
